@@ -8,31 +8,40 @@ def welcome_message
   end
 
 # Restituisce n! (fattoriale)
-def factorial(_n)
-  (1.._n).inject(:*)
+def factorial(n)
+  (1..n).inject(:*) || 1
 end
 
 # Restituisce la stringa più lunga in un array di stringhe
-def find_longest_string(_array)
-    _array.max_by(&:length)
+def find_longest_string(array)
+  array.max_by(&:length)
 end
 
 # Restituisce true se l'array contiene altri array (es. [[1],2,3] => true)
 def has_nested_array?(array)
-    array.each do |element|
-        return true if element.kind_of?(Array)
-    end
-    false
+  array.each do |element|
+    return true if element.is_a?(Array)
+  end
+  false
   end
 
 # Conta il numero di caratteri maiuscoli in una stringa
-def count_upcased_letters(_string)
-    _string.scan(/\p{Upper}/).count
+def count_upcased_letters(string)
+  string.scan(/\p{Upper}/).count
 end
 
 # Converte un numero in numero romano
-def to_roman(_n)
-  false
+def to_roman(n)
+  resto = []
+  num = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+  num.each do |element|
+    resto.push(n / element)
+    n = n % element
+  end
+  chars = %w[M CM D CD C XC L XL X IX V IV I]
+  resto.each_with_index.map do |element, index|
+    chars[index] * element
+  end.join
 end
 
 ######
@@ -41,29 +50,19 @@ end
 ######
 
 class Point2D
-  # costruisce un punto con coordinate (x,y)
-  # nota che non e' necessario nessun controllo sul tipo di x e y
-  def initialize(_x, _y)
-    nil
+  attr_reader :x, :y
+
+  def initialize(x, y)
+    @x = x
+    @y = y
   end
 
-  # la classe punto deve avere rendere accessibili gli attributi `x` e `y`
-  # IN SOLA LETTURA
-
-  # la funzione `+` riceve come argomento un oggetto Point2D e restituisce un
-  # nuovo oggetto Point2D che ha come coordinate la somma delle coordinate dei
-  # due oggetti. (x1 + x2, y1 + y2)
-  # la funzione non deve alterare lo stato interno dell'oggetto, ma restituire
-  # un nuovo oggetto
-  def +(_point)
-    nil
+  def +(other)
+    Point2D.new(@x + other.x, @y + other.y)
   end
 
-  # Restituisce una rappresentazione testuale dell'oggetto punto, nella forma
-  # "(x,y)", senza spazi.
-  # ES: siano x = 1, y = 2.345, la funzione deve restituire "(1,2.345)"
   def to_s
-    nil
+    "(#{@x},#{@y})"
   end
 end
 
@@ -74,16 +73,21 @@ class Book
 
   # Implementa il costruttore
   # dai un'occhiata a https://robots.thoughtbot.com/ruby-2-keyword-arguments
-  def initialize(title:, author:, release_date:, publisher:, isbn:); end
+  def initialize(title:, author:, release_date:, publisher:, isbn:)
+    @title = title
+    @author = author
+    @release_date = release_date
+    @publisher = publisher
+    @isbn = isbn
+  end
 
-  # requisiti perche' un libro sia considerato valido:
-  # title deve essere una stringa (@title.class == String) non vuota
-  # author deve essere una stringa non vuota
-  # release_date deve essere un oggetto Date
-  # publisher deve essere una stringa non vuota
-  # isbn deve essere un Integer minore di 10**10 e maggiore di 10**9
   def valid?
-    nil
+    valid_string? @title
+    valid_string? @author
+    valid_date? @release_date
+    valid_string? @publisher
+    valid_integer? @isbn
+    true
   end
 
   # restituisce un array di simboli.
@@ -92,11 +96,27 @@ class Book
   # quell'attributo deve essere presente nel vettore, in qualsiasi ordine.
   # esempio: title e author non sono validi, restituisce [:title, :author]
   def errors
-    nil
+    result = []
+    result.push(':title') unless valid_string? @title
+    result.push(':author') unless valid_string? @author
+    result.push(':release_date') unless valid_date? @release_date
+    result.push(':publisher') unless valid_string? @publisher
+    result.push(':isbn') unless valid_integer? @isbn
+    result
+  end
+
+  def valid_string?(str)
+    false unless (str.is_a? String) && !str.empty?
+    true
+  end
+
+  def valid_date?(date)
+    false unless date.is_a? Date
+    true
+  end
+
+  def valid_integer?(value)
+    false unless (value.is_a? Integer) && !value.between?(10**9, 10**10)
+    true
   end
 end
-
-puts factorial(3)
-puts find_longest_string [  "adfdafaf", "qwdad", "adas" ]
-puts has_nested_array? [[]]
-puts count_upcased_letters "AAbscsffczfsAA"
