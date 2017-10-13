@@ -48,19 +48,30 @@ end
 # Completa l'implementazione delle seguenti classi seguendo quanto
 # richiesto dai commenti.
 ######
-
 class Point2D
+  # la classe punto deve avere rendere accessibili gli attributi `x` e `y`
+  # IN SOLA LETTURA
   attr_reader :x, :y
 
+  # costruisce un punto con coordinate (x,y)
+  # nota che non e' necessario nessun controllo sul tipo di x e y
   def initialize(x, y)
     @x = x
     @y = y
   end
 
+  # la funzione `+` riceve come argomento un oggetto Point2D e restituisce un
+  # nuovo oggetto Point2D che ha come coordinate la somma delle coordinate dei
+  # due oggetti. (x1 + x2, y1 + y2)
+  # la funzione non deve alterare lo stato interno dell'oggetto, ma restituire
+  # un nuovo oggetto
   def +(other)
     Point2D.new(@x + other.x, @y + other.y)
   end
 
+  # Restituisce una rappresentazione testuale dell'oggetto punto, nella forma
+  # "(x,y)", senza spazi.
+  # ES: siano x = 1, y = 2.345, la funzione deve restituire "(1,2.345)"
   def to_s
     "(#{@x},#{@y})"
   end
@@ -81,6 +92,12 @@ class Book
     @isbn = isbn
   end
 
+  # requisiti perche' un libro sia considerato valido:
+  # title deve essere una stringa (@title.class == String) non vuota
+  # author deve essere una stringa non vuota
+  # release_date deve essere un oggetto Date
+  # publisher deve essere una stringa non vuota
+  # isbn deve essere un Fixnum minore di 10**10 e maggiore di 10**9
   def valid?
     return false unless   (valid_string? @title) &&
                           (valid_string? @author) &&
