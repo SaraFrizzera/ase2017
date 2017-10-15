@@ -23,8 +23,8 @@ def has_nested_array?(array)
 end
 
 # Conta il numero di caratteri maiuscoli in una stringa
-def count_uppercase_letters(string)
-  return string.scan(/[A-Z]/).length
+def count_upcased_letters(string)
+  string.scan(/[A-Z]/).length
 end
 
 # Associazione valori romani - decimali
