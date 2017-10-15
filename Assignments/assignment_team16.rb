@@ -92,12 +92,7 @@ class Book
   # publisher deve essere una stringa non vuota
   # isbn deve essere un Fixnum minore di 10**10 e maggiore di 10**9
   def valid?
-    return false unless   (valid_string? @title) &&
-                          (valid_string? @author) &&
-                          (valid_date? @release_date) &&
-                          (valid_string? @publisher) &&
-                          (valid_integer? @isbn)
-    true
+    errors.empty?
   end
 
   # restituisce un array di simboli.
