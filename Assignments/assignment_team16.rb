@@ -52,6 +52,7 @@ def to_roman(n)
   end.join
 end
 
+#rappresentazione di un punto in uno spazio bidimensionale
 class Point2D
   attr_reader :x, :y
 
@@ -60,7 +61,8 @@ class Point2D
     @y = y
   end
 
-  # 
+  # restituisce un nuovo punto avente come coordinate la somma
+  # delle coorinate dei due punti
   def +(other)
     Point2D.new(@x + other.x, @y + other.y)
   end
@@ -72,8 +74,9 @@ class Point2D
   end
 end
 
-require 'date'
-
+require 'date' # necessario per l'utilizzo della classe Date
+ 
+# rappresentazione di un libro
 class Book
   attr_accessor :title, :author, :release_date, :publisher, :isbn
   
@@ -85,21 +88,12 @@ class Book
     @isbn = isbn
   end
 
-  # requisiti perche' un libro sia considerato valido:
-  # title deve essere una stringa (@title.class == String) non vuota
-  # author deve essere una stringa non vuota
-  # release_date deve essere un oggetto Date
-  # publisher deve essere una stringa non vuota
-  # isbn deve essere un Fixnum minore di 10**10 e maggiore di 10**9
+  # un libro è valido se la lista di errori è vuota
   def valid?
     errors.empty?
   end
 
-  # restituisce un array di simboli.
-  # Se l'oggetto e' valido, restituisce un vettore vuoto
-  # Se non lo e', per ogni attributo che non e' valido, la chiave per
-  # quell'attributo deve essere presente nel vettore, in qualsiasi ordine.
-  # esempio: title e author non sono validi, restituisce [:title, :author]
+  # genera una lista di errori in base ai valori dei suoi campi
   def errors
     result = []
     result.push(:title) unless valid_string? @title
@@ -110,16 +104,19 @@ class Book
     result
   end
 
+  # un valore stringa viene considerato valido se è una stringa non vuota
   def valid_string?(str)
     return false unless (str.is_a? String) && !str.empty?
     true
   end
 
+  # un valore data viene considerato valido se è una Data
   def valid_date?(date)
     return false unless date.is_a? Date
     true
   end
 
+  # un valore numerico viene considerato valido se cmpreso tra 10**9 e 10**10
   def valid_integer?(value)
     return false unless (value.is_a? Integer) && value.between?(10**9, 10**10)
     true
