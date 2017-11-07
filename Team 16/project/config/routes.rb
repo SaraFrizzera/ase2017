@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
   root 'welcome#index'
 
-  get 'welcome/test'
-  root 'welcome#test'
+  get 'user/create_user', to: 'user#create_user'
+
+  get 'user/find', to: 'user#find'
 end

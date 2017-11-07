@@ -31,3 +31,7 @@ rails destroy model <model_name>
 [migrazione modelli]
 rails db:migrate RAILS_ENV=development
 
+
+C:\RailsInstaller\Ruby2.3.3\lib\ruby\gems\2.3.0\gems\uglifier-3.2.0
+
+gem install strong_parameters
