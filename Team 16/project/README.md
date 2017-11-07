@@ -17,6 +17,8 @@ bundle install                  <-- install rails bundle (?)
 
 gem install rake                <-- test unit run by command -->           rake test
 
+[necessario node.js]
+https://nodejs.org/it/download/
 
 [RUN SERVER]
 ruby bin\rails server           <-- ctrl c to stop
