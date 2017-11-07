@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-  def create_user
+  def create
     username = request.headers['username']
     password = request.headers['password']
 
@@ -10,7 +10,18 @@ class UserController < ApplicationController
 
   def find
     username = request.headers['username']
+
+    return if validate_headers([username])
+
     render json: (UserService.new.find_user username)
+  end
+
+  def update
+    raise 'not implemented'
+  end
+
+  def delete
+    raise 'not implemented'
   end
 
   def validate_headers(headers)
