@@ -1,23 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+https://learnrubythehardway.org/book/ex46.html          <--- project structure
 
-Things you may want to cover:
+https://github.com/bbatsov/ruby-style-guide             <--- best practice guide
 
-* Ruby version
+http://guides.rubyonrails.org/getting_started.html      <--- rails guide
 
-* System dependencies
+https://help.github.com/articles/enabling-required-reviews-for-pull-requests/       <--- pull request 
 
-* Configuration
+[install rails]
+http://railsinstaller.org/en
 
-* Database creation
 
-* Database initialization
+[gem list]
+bundle install                  <-- install rails bundle (?)
 
-* How to run the test suite
+gem install rake                <-- test unit run by command -->           rake test
 
-* Services (job queues, cache servers, search engines, etc.)
 
 [RUN SERVER]
 ruby bin\rails server           <-- ctrl c to stop
