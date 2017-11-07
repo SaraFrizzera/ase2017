@@ -1,22 +1,23 @@
 # README
 
-https://learnrubythehardway.org/book/ex46.html          <--- project structure
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-https://github.com/bbatsov/ruby-style-guide             <--- best practice guide
+Things you may want to cover:
 
-http://guides.rubyonrails.org/getting_started.html      <--- rails guide
+* Ruby version
 
-https://help.github.com/articles/enabling-required-reviews-for-pull-requests/       <--- pull request 
+* System dependencies
 
-[install rails]
-http://railsinstaller.org/en
+* Configuration
 
+* Database creation
 
-[gem list]
-bundle install                  <-- install rails bundle (?)
+* Database initialization
 
-gem install rake                <-- test unit run by command -->           rake test
+* How to run the test suite
 
+* Services (job queues, cache servers, search engines, etc.)
 
 [RUN SERVER]
 ruby bin\rails server           <-- ctrl c to stop
@@ -28,3 +29,4 @@ rails g model <model_name> title:string created_by:string
 rails destroy model <model_name>
 [migrazione modelli]
 rails db:migrate RAILS_ENV=development
+
