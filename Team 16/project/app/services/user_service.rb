@@ -1,5 +1,7 @@
 class UserService
-  def create_user(username, password)
+  def create_user(headers)
+    username = headers['username']
+    password = headers['password']
     validate_params([username, password])
 
     user = User.new username: username, password: password
@@ -7,7 +9,8 @@ class UserService
     user
   end
 
-  def find_user(username)
+  def find_user(headers)
+    username = headers['username']
     validate_params([username])
 
     User.find_by(username: username)

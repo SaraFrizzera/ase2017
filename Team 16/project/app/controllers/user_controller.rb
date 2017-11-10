@@ -1,23 +1,10 @@
 class UserController < ApplicationController
   def create
-    username = request.headers['username']
-    password = request.headers['password']
-
-    begin
-      render json: (UserService.new.create_user username, password)
-    rescue ArgumentError => exception
-      render json: { error: exception.message }, status: :bad_request
-    end
+    service_handler UserService.new.method(:create_user), request.headers
   end
 
   def find
-    username = request.headers['username']
-
-    begin
-      render json: (UserService.new.find_user username)
-    rescue ArgumentError => exception
-      render json: { error: exception.message }, status: :bad_request
-    end
+    service_handler UserService.new.method(:find_user), request.headers
   end
 
   def update
@@ -26,5 +13,11 @@ class UserController < ApplicationController
 
   def delete
     raise 'not implemented'
+  end
+
+  def service_handler(service_function, headers)
+    render json: service_function.call(headers)
+  rescue ArgumentError => exception
+    render json: { error: exception.message }, status: :bad_request
   end
 end
