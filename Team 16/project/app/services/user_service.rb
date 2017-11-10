@@ -3,7 +3,7 @@ class UserService
     username = headers['username']
     password = headers['password']
     validate_params([username, password])
-
+    
     user = User.new username: username, password: password
     user.save
     user
