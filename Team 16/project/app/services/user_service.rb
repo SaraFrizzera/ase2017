@@ -1,4 +1,4 @@
-class UserService
+class UserService < BaseService
   def create_user(headers)
     username = headers['username']
     password = headers['password']
@@ -14,11 +14,6 @@ class UserService
     validate_params([username])
 
     User.find_by(username: username)
-  end
-
-  def validate_params(params)
-    params.each { |a| raise ArgumentError, 'Headers validation failed' if a.nil? || a.empty? }
-    false
   end
 
   def find_all_users
