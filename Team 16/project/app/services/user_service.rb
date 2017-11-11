@@ -3,7 +3,7 @@ class UserService
     username = headers['username']
     password = headers['password']
     validate_params([username, password])
-    
+
     user = User.new username: username, password: password
     user.save
     user
@@ -19,5 +19,9 @@ class UserService
   def validate_params(params)
     params.each { |a| raise ArgumentError, 'Headers validation failed' if a.nil? || a.empty? }
     false
+  end
+
+  def find_all_users
+    User.all
   end
 end
