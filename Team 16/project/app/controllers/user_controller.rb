@@ -1,31 +1,17 @@
-class UserController < ApplicationController
+class UserController < BaseController
   def create
-    username = request.headers['username']
-    password = request.headers['password']
-
-    return if validate_headers([username, password])
-
-    render json: (UserService.new.create_user username, password)
+    service_handler UserService.new.method(:create_user), request.headers
   end
 
-  def find
-    username = request.headers['username']
-
-    return if validate_headers([username])
-
-    render json: (UserService.new.find_user username)
+  def find_all
+    service_handler UserService.new.method(:find_all_users)
   end
 
-  def update
-    raise 'not implemented'
+  def find_specific
+    service_handler UserService.new.method(:find_user), request.headers
   end
 
   def delete
     raise 'not implemented'
-  end
-
-  def validate_headers(headers)
-    headers.each { |a| (render json: { error: 'Headers validation failed' }, status: :bad_request; return true) if a.nil? || a.empty? }
-    false
   end
 end

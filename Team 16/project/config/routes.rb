@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  
   root :to => 'welcome#index'
-
-  get 'user/create', to: 'user#create'
-
-  get 'user/find', to: 'user#find'
+  post 'user', to: 'user#create'
+  get 'user', to: 'user#find_specific' # headers => username
+  get 'users', to: 'user#find_all' # headers =>
 end
