@@ -34,3 +34,7 @@ rails db:migrate RAILS_ENV=development
 [mostra API routes]
 rake routes
 
+[run test]
+rails db:migrate RAILS_ENV=test
+rake test
+

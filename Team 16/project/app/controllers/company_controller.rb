@@ -3,8 +3,6 @@ class CompanyController < BaseController
     puts request.headers['companyName']
     puts request.headers['vatNumber']
 
-
-
     service_handler CompanyService.new.method(:create_company), request.headers
   end
 
