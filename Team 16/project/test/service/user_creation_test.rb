@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class UserControllerTest < ActionDispatch::IntegrationTest
-  test 'User creation' do
+class UserCreationTest < ActionDispatch::IntegrationTest
+  test 'Should create correct user when giving correct params' do
     reset_db
 
     # arrange
@@ -15,6 +15,12 @@ class UserControllerTest < ActionDispatch::IntegrationTest
     assert_equal(headers['username'], user.username, 'Username must be correctly populated after user creation')
     assert_equal(headers['password'], user.password, 'password must be correctly populated after user creation')
   end
+
+
+#TODO REFACTORING COME SOPRA
+
+
+
 
   test 'User search' do
     reset_db
