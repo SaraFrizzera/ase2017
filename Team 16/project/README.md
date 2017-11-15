@@ -13,9 +13,9 @@ http://railsinstaller.org/en
 
 
 [gem list]
-bundle install                  <-- install rails bundle (?)
-
-gem install rake                <-- test unit run by command -->           rake test
+gem install rails
+bundle install
+gem install rake
 
 [necessario node.js]
 https://nodejs.org/it/download/
