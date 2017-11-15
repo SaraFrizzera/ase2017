@@ -32,6 +32,17 @@ class UserResearchTest < ActionDispatch::IntegrationTest
     assert_not_equal(nil, users)
   end
 
+  test 'Should block search when giving wrong params' do
+    reset_db
+
+    # arrange
+    creation_headers = { 'username' => 'dario', 'password' => 'pw' }
+    search_headers = { 'username' => ')(/&%&/((/&%$%&@#[' }
+    UserService.new.create_user creation_headers
+    # act & assert
+    assert_raises (ArgumentError) { UserService.new.find_user(search_headers) }
+  end
+
   def reset_db
     User.delete_all
   end

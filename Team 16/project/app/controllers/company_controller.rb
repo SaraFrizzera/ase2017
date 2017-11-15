@@ -1,20 +1,17 @@
 class CompanyController < BaseController
   def create
-    puts request.headers['companyName']
-    puts request.headers['vatNumber']
-
     service_handler CompanyService.new.method(:create_company), request.headers
   end
 
   def find_all
-    raise 'not implemented'
+    service_handler CompanyService.new.method(:find_companies)
   end
 
   def find_specific
-    raise 'not implemented'
+    service_handler CompanyService.new.method(:find_company), request.headers
   end
 
   def delete
-    raise 'not implemented'
+    service_handler CompanyService.new.method(:delete_company), request.headers
   end
 end
