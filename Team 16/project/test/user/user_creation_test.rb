@@ -9,9 +9,9 @@ class UserCreationTest < ActionDispatch::IntegrationTest
     user = UserService.new.create_user headers
 
     # assert
-    assert_not_equal(nil, user, 'User cant be nil after creation')
-    assert_equal(headers['username'], user.username, 'Username must be correctly populated after user creation')
-    assert_equal(headers['password'], user.password, 'password must be correctly populated after user creation')
+    assert_not_nil(user)
+    assert_equal(headers['username'], user.username)
+    assert_equal(headers['password'], user.password)
   end
 
   test 'Should block user creation when giving wrong params' do
@@ -24,6 +24,18 @@ class UserCreationTest < ActionDispatch::IntegrationTest
     # act & assert
     assert_raises (ArgumentError)  { UserService.new.create_user(headers1) }
     assert_raises (ArgumentError)  { UserService.new.create_user(headers2) }
+  end
+
+  test 'Should block user creation when user with same name already exists' do
+    reset_db
+
+    # arrange
+    headers1 = { 'username' => 'dario', 'password' => 'a' }
+    headers2 = { 'username' => 'dario', 'password' => 'pw' }
+
+    # act & assert
+    assert_not_nil(UserService.new.create_user(headers1))
+    assert_raises (ArgumentError) { UserService.new.create_user(headers2) }
   end
 
   def reset_db
