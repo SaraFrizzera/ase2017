@@ -12,6 +12,6 @@ class UserController < BaseController
   end
 
   def delete
-    raise 'not implemented'
+    service_handler UserService.new.method(:delete_user), request.headers
   end
 end
