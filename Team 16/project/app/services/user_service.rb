@@ -4,7 +4,7 @@ class UserService < BaseService
     password = headers['password']
     validate_params([username, password]) # prende la funzione che controlla gli headers
 
-    raise ArgumentError,'Username already existing' if User.find_by(username: username)
+    raise ArgumentError, 'Username already existing' if User.find_by(username: username)
 
     user = User.new username: username, password: password # crea un oggetto User con parametri di username e psw
     user.save # salva nel DB integrato l'utente
