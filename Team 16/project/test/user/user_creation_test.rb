@@ -1,5 +1,3 @@
-require 'test_helper'
-
 class UserCreationTest < ActionDispatch::IntegrationTest
   test 'Should create correct user when giving correct params' do
     reset_db
