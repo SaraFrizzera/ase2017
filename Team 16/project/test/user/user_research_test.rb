@@ -29,7 +29,7 @@ class UserResearchTest < ActionDispatch::IntegrationTest
 
     # assert
     assert_not_nil(users)
-    assert_not_nil(users)
+    assert_equal(2, users.length)
   end
 
   test 'Should block search when giving wrong params' do
