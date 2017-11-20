@@ -4,5 +4,6 @@ Rails.application.routes.draw do # dfault
   get 'user', to: 'user#find_specific' # headers => username.
   get 'users', to: 'user#find_all' # headers =>
   post 'company', to: 'company#create'
+  post 'activity', to: 'activity#create'
   delete 'user', to: 'user#delete'
 end
