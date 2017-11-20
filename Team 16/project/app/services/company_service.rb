@@ -3,8 +3,6 @@ class CompanyService < BaseService
     company_name = headers['companyName']
     vat_number = headers['vatNumber']
     validate_params([company_name, vat_number])
-    
-    adsws = Company.find_by(company_name: company_name)
     raise ArgumentError, 'Company name already existing' if Company.find_by(company_name: company_name)
 
     company = Company.new company_name: company_name, vat_number: vat_number
