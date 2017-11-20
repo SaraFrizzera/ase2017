@@ -12,5 +12,8 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery3
 //= require vue
+//= require bootstrap.min
+//= require hammer.min.js
 //= require_tree .

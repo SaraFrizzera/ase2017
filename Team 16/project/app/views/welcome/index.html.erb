@@ -1,0 +1,67 @@
+<!doctype HTML>
+<html>
+
+<head>
+    <%= csrf_meta_tags %>
+
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+    <!-- VUE.JS TEST
+    <div id="app">
+        <p>{{ message }}</p>
+        <p>{{ reverseMessage }}</p>
+        <input type="text" v-model="message">
+    </div> -->
+    <div id="app">
+        <div class="row">
+            <div class="col col-3">
+                <ol>
+                    <li>
+                        ( {{ lastContainerClicked.length }} ) - {{ lastEvent.length }}
+                    </li>
+                </ol>
+            </div>
+            <div class="col col-9">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="first-column"></th>
+                            <th>GIORNO1</th>
+                            <th>GIORNO2</th>
+                            <th>GIORNO3</th>
+                            <th>GIORNO4</th>
+                            <th>GIORNO5</th>
+                            <th>GIORNO6</th>
+                            <th>GIORNO7</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <% (1..25).each do |hour|%>
+                            <tr class="<%= "non-visible" if hour==25 %>">
+                                <td class="first-column-wrapper">
+                                    <div class="first-column">
+                                        <%= hour if hour<25 %>
+                                    </div>
+                                </td>
+                                <% (1..7).each do |day|%>
+                                    <td>
+                                        <div class="event-wrapper" id="<%= hour-1  %>-<%= day  %>"></div>
+                                    </td>
+                                <% end %>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="overlay">
+
+        </div>
+    </div>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</body>
+
+</html>
