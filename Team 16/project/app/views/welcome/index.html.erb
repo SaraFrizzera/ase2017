@@ -56,8 +56,32 @@
                 </table>
             </div>
         </div>
-        <div class="overlay">
-
+        <div id="overlay">
+            <div class="row">
+                <div class="col col-3">
+                    <div class="event-info-wrapper">
+                        <div class="event-info">
+                            <h4>Add Event</h4>
+                            <form>
+                                <div class="form-group">
+                                  <label for="desc">Stuff done</label>
+                                  <input type="" class="form-control" id="desc" aria-describedby="desc" placeholder="Stuff done">
+                                  <small id="descHelp" class="form-text text-muted">You're an All Star, get the show on, get paid!</small>
+                                </div>
+                                <div class="input-group bootstrap-timepicker timepicker">
+                                    <input id="start-time-add-event" type="text" class="form-control input-small">
+                                    <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                </div>
+                                <div class="input-group bootstrap-timepicker timepicker">
+                                    <input id="end-time-add-event" type="text" class="form-control input-small">
+                                    <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

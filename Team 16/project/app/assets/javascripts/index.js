@@ -32,7 +32,12 @@ var app = new Vue({
         },
         addEvent: function() {
             $('.just-created-event').height(this.cellHeight * this.lastContainerClicked.length);
-            $('.just-created-event').removeClass('just-created-event');
+            this.addDetailsToEvent();
+        },
+        addDetailsToEvent: function() {
+            $('#overlay').addClass('pre-show-overlay');
+            $('#overlay').addClass('show-overlay');
+            //$('.just-created-event').removeClass('just-created-event');
         }
     },
     computed: {
@@ -63,7 +68,20 @@ $(window).resize(function () {
 });
 
 $(document).ready(function() {
+    var settings = {
+        showSeconds: false,
+        maxHours: 24,
+        defaultTime: false,
+        showMeridian: false,
+        minuteStep: 60,
+        icons: {
+            up: 'octicon-triangle-up',
+            down: 'octicon-triangle-down'
+        }
+    };
     app.setCellHeight();
+    $('#start-time-add-event').timepicker(settings);
+    $('#end-time-add-event').timepicker(settings);
 });
 
 $(".event-wrapper").mousedown(function (obj) {

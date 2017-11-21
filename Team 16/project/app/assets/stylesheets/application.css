@@ -13,6 +13,7 @@
  *= require bootstrap.min
  *= require bootstrap-grid.min
  *= require bootstrap-reboot.min
+ *= require bootstrap-timepicker.min
  *= require_tree .
  *= require_self
  */
