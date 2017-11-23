@@ -13,6 +13,8 @@
 ActiveRecord::Schema.define(version: 20171120143817) do
 
   create_table "activities", force: :cascade do |t|
+    t.integer "userId"
+    t.integer "companyId"
     t.datetime "start_time"
     t.datetime "end_time"
   end

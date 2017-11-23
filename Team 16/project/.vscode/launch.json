@@ -4,22 +4,9 @@
     // Per ulteriori informazioni, visitare: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "name": "Debug Local File",
-            "type": "Ruby",
-            "request": "launch",
-            "cwd": "${workspaceRoot}",
-            "program": "${workspaceRoot}/main.rb"
-        },
-        {
-            "name": "Listen for rdebug-ide",
-            "type": "Ruby",
-            "request": "attach",
-            "cwd": "${workspaceRoot}",
-            "remoteHost": "127.0.0.1",
-            "remotePort": "1234",
-            "remoteWorkspaceRoot": "${workspaceRoot}"
-        },
+
+        
+        
         {
             "name": "Rails server",
             "type": "Ruby",
@@ -31,26 +18,13 @@
             ]
         },
         {
-            "name": "RSpec - all",
+            "name": "Rake test",
             "type": "Ruby",
             "request": "launch",
             "cwd": "${workspaceRoot}",
-            "program": "${workspaceRoot}/bin/rspec",
+            "program": "${workspaceRoot}/bin/rake",
             "args": [
-                "-I",
-                "${workspaceRoot}"
-            ]
-        },
-        {
-            "name": "RSpec - active spec file only",
-            "type": "Ruby",
-            "request": "launch",
-            "cwd": "${workspaceRoot}",
-            "program": "${workspaceRoot}/bin/rspec",
-            "args": [
-                "-I",
-                "${workspaceRoot}",
-                "${file}"
+                "test"
             ]
         },
         {
