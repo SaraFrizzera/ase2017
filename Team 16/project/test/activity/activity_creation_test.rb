@@ -30,9 +30,49 @@ class ActivityCreationTest < ActionDispatch::IntegrationTest
     assert_equal(60, ((activity.end_time - activity.start_time) / 1.minute).round)
   end
 
+  test 'Should stop activity creation when user not existing' do
+    reset_db
+
+    # arrange
+    seed_database
+    wrong_activity_headers = {
+      'username' => 'dario2',
+      'vatNumber' => '666',
+      'startTime' => '22 Jan 2013 15:00:00',
+      'endTime' => '22 Jan 2013 16:00:00'
+    }
+
+    # act & assert
+    assert_raises (ArgumentError) { ActivityService.new.create_activity wrong_activity_headers }
+  end
+
+  test 'Should stop activity creation when company not existing' do
+    reset_db
+
+    # arrange
+    seed_database
+    wrong_activity_headers = {
+      'username' => 'dario',
+      'vatNumber' => '0',
+      'startTime' => '22 Jan 2013 15:00:00',
+      'endTime' => '22 Jan 2013 16:00:00'
+    }
+
+    # act & assert
+    assert_raises (ArgumentError) { ActivityService.new.create_activity wrong_activity_headers }
+  end
+
   def reset_db
     Activity.delete_all
     Company.delete_all
     User.delete_all
+  end
+
+  def seed_database
+    user_headers = { 'username' => 'dario', 'password' => 'pw' }
+    company_headers = { 'companyName' => 'RageDarioDevelopment', 'vatNumber' => '666' }
+
+    UserService.new.create_user user_headers
+    CompanyService.new.create_company company_headers
   end
 end

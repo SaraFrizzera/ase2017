@@ -4,7 +4,7 @@ class ActivityController < BaseController
   end
 
   def find_all
-    service_handler ActivityService.new.method(:find_activity)
+    service_handler ActivityService.new.method(:find_all_activity)
   end
 
   def find_specific

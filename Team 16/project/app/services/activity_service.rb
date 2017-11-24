@@ -24,7 +24,12 @@ class ActivityService < BaseService
     end_time = headers['endTime']
     validate_params([username, company_vat_number, start_time, end_time])
 
-    Activity.find_by(start_time: start_time, end_time: end_time, company: company, user: user)
+    user = User.find_by(username: username)
+    company = Company.find_by(vat_number: company_vat_number)
+    raise ArgumentError, 'User not exists in database' unless user
+    raise ArgumentError, 'Company not exists in database' unless company
+
+    Activity.find_by(start_time: Time.zone.parse(start_time), end_time: Time.zone.parse(end_time), company_id: company.id, user_id: user.id)
   end
 
   def find_all_activity
@@ -32,6 +37,7 @@ class ActivityService < BaseService
   end
 
   def delete(headers)
+    return unless find_activity(headers)
     find_activity(headers).destroy
   end
 end
