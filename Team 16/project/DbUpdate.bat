@@ -1,5 +1,4 @@
 cd db
 del development.sqlite3
+del test.sqlite3
 rake db:migrate
-rails db:migrate RAILS_ENV=development
-pause
