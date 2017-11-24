@@ -17,15 +17,21 @@ class ActivityService < BaseService
     activity
   end
 
-  def find_activity(_headers)
-    raise 'not implemented'
+  def find_activity(headers)
+    username = headers['username']
+    company_vat_number = headers['vatNumber']
+    start_time = headers['startTime']
+    end_time = headers['endTime']
+    validate_params([username, company_vat_number, start_time, end_time])
+
+    Activity.find_by(start_time: start_time, end_time: end_time, company: company, user: user)
   end
 
   def find_all_activity
-    raise 'not implemented'
+    Activity.all
   end
 
-  def delete(_headers)
-    raise 'not implemented'
+  def delete(headers)
+    find_activity(headers).destroy
   end
 end
