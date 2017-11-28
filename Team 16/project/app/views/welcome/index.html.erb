@@ -4,7 +4,10 @@
 <head>
     <%= csrf_meta_tags %>
 
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <script src="https://use.fontawesome.com/6ca3ee8528.js"></script>
+
 </head>
 
 <body>
@@ -19,7 +22,7 @@
             <div class="col col-3">
                 <ol>
                     <li>
-                        ( {{ lastContainerClicked.length }} ) - {{ lastEvent.length }}
+                        ( {{ lastContainerClickedLength }} ) - {{ lastEvent.length }}
                     </li>
                 </ol>
             </div>
@@ -65,16 +68,18 @@
                             <form>
                                 <div class="form-group">
                                   <label for="desc">Stuff done</label>
-                                  <input type="" class="form-control" id="desc" aria-describedby="desc" placeholder="Stuff done">
-                                  <small id="descHelp" class="form-text text-muted">You're an All Star, get the show on, get paid!</small>
+                                  <input type="text" class="form-control" id="desc" aria-describedby="desc" placeholder="Stuff done" v-model="lastEventDesc">
+                                  <small id="descHelp" class="form-text text-muted">Hey now, you're a rock star, get the show on, get paid!</small>
                                 </div>
-                                <div class="input-group bootstrap-timepicker timepicker">
-                                    <input id="start-time-add-event" type="text" class="form-control input-small">
-                                    <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                
+                                <div class="form-group">
+                                  <label for="start-time-event-creation">Start time</label>
+                                  <input type="text" class="form-control" id="start-time-event-creation" aria-describedby="start-time-event-creation" v-model="lastContainerClickedStart" disabled>
                                 </div>
-                                <div class="input-group bootstrap-timepicker timepicker">
-                                    <input id="end-time-add-event" type="text" class="form-control input-small">
-                                    <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                
+                                <div class="form-group">
+                                  <label for="end-time-event-creation">End time</label>
+                                  <input type="text" class="form-control" id="end-time-event-creation" aria-describedby="end-time-event-creation" v-model="lastContainerClickedEnd">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                               </form>

@@ -3,17 +3,16 @@ var app = new Vue({
     data: {
         events: [],
         lastEvent: '',
-        lastContainerClicked: {
-            start: '',
-            end: ''
-        }
+        lastContainerClickedStart: 0,
+        lastContainerClickedEnd: 9,
+        lastEventDesc: ''
     },
     watch: {
         events: function () {
             console.log(this.events[this.events.length - 1]); 
         },
-        lastContainerClicked: function() {
-            this.setLastEvent();
+        lastContainerClickedEnd: function() {
+            if(this.lastContainerClickedEnd != '' || this.lastContainerClickedEnd < this.lastContainerClickedStart) this.setLastEvent();
         }
     },
     methods: {
@@ -25,14 +24,16 @@ var app = new Vue({
             this.cellHeight = $('.first-column-wrapper').height() + 3;
         },
         calculateNoOfCells: function() {
-            this.lastContainerClicked.length = this.lastContainerClicked.end.split('-')[0] - this.lastContainerClicked.start.split('-')[0];
+            this.lastContainerClickedLength = this.lastContainerClickedEnd - this.lastContainerClickedStart;
             this.addEvent();
             //this.events.push(lastContainerClicked);
             //console.log(events);
         },
         addEvent: function() {
-            $('.just-created-event').height(this.cellHeight * this.lastContainerClicked.length);
-            this.addDetailsToEvent();
+            // $('#start-time-add-event').timepicker('setTime', this.lastContainerClicked.start + ':00');
+            // $('#end-time-add-event').timepicker('setTime', this.lastContainerClicked.end + ':00');
+            $('.just-created-event').height(this.cellHeight * this.lastContainerClickedLength);
+            if(!$('#overlay').hasClass('show-overlay')) this.addDetailsToEvent();
         },
         addDetailsToEvent: function() {
             $('#overlay').addClass('pre-show-overlay');
@@ -68,31 +69,31 @@ $(window).resize(function () {
 });
 
 $(document).ready(function() {
-    var settings = {
-        showSeconds: false,
-        maxHours: 24,
-        defaultTime: false,
-        showMeridian: false,
-        minuteStep: 60,
-        icons: {
-            up: 'octicon-triangle-up',
-            down: 'octicon-triangle-down'
-        }
-    };
     app.setCellHeight();
-    $('#start-time-add-event').timepicker(settings);
-    $('#end-time-add-event').timepicker(settings);
+    // $('#start-time-add-event').timepicker(settings).on('changeTime.timepicker', function(e) {
+    //     app.lastContainerClicked = {
+    //         start: e.time.hours
+    //     };
+    //     console.log(app.lastContainerClicked.start);
+    // });
+    // $('#end-time-add-event').timepicker(settings).on('changeTime.timepicker', function(e) {
+    //     app.lastContainerClicked.end = e.time.hours;
+    // });
 });
 
 $(".event-wrapper").mousedown(function (obj) {
     app.currentContainer = obj.target.id;
     $(".event-wrapper").mouseup(function(obj_end) {
-        app.lastContainerClicked = {
-            end: obj_end.target.id,
-            start: obj.target.id
-        };
-        $('.event-animation-creation').addClass('event just-created-event');
-        $('.event-animation-creation').removeClass('event-animation-creation');
-        app.currentContainer = null;
+        addNewEvent(obj, obj_end);
     });
 });
+
+function addNewEvent(obj, obj_end) {
+    app.lastContainerClickedStart = obj.target.id.split('-')[0];
+    app.lastContainerClickedEnd = obj_end.target.id.split('-')[0];
+    
+    $('.event-animation-creation').addClass('event just-created-event');
+    $('.event-animation-creation').removeClass('event-animation-creation');
+    app.currentContainer = null;
+}
+
