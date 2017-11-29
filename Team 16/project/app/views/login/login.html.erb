@@ -4,7 +4,10 @@
 <head>
     <title></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
-    <%= stylesheet_link_tag "login" %>  
+
+    <%= csrf_meta_tags %>
+    <%= javascript_include_tag 'toastr.js', :cache => 'myfiles' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body>
@@ -59,8 +62,8 @@
                 'Content-Type': 'application/json',
                 'username': this.username,
                 'password': this.password
-                }
-            })
+            }
+        })
             .then(function (response) {
                 localStorage.setItem('user', JSON.stringify(response.data));
             })
