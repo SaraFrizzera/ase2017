@@ -64,3 +64,5 @@ gem 'vue-rails'
 gem 'bootstrap', '~> 4.0.0.beta2'
 
 gem 'wdm'
+
+gem 'toastr-rails'

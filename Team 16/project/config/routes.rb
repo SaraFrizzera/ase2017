@@ -15,4 +15,7 @@ Rails.application.routes.draw do
   get 'activity', to: 'activity#find_specific' # headers => username, vatNumber, startTime, endTime
   get 'activities', to: 'activity#find_all' # headers =>
   delete 'activity', to: 'activity#delete' # headers => username, vatNumber, startTime, endTime
+
+  post 'signin', to: 'login#sign_in' # headers => username, password.
+  get 'login', to: 'login#log_in' # headers => username, password.
 end

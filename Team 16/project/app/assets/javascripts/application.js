@@ -13,4 +13,5 @@
 //= require rails-ujs
 //= require turbolinks
 //= require vue
+//= require toastr
 //= require_tree .
