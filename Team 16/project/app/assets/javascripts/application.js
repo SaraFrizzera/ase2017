@@ -12,6 +12,10 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery3
 //= require vue
 //= require toastr
+//= require bootstrap.min
+//= require hammer.min.js
+//= require bootstrap-timepicker.min
 //= require_tree .
