@@ -5,14 +5,15 @@ var app = new Vue({
         lastEvent: '',
         lastContainerClickedStart: 0,
         lastContainerClickedEnd: 9,
-        lastEventDesc: ''
+        lastEventDesc: '',
+        username: 'USER'
     },
     watch: {
         events: function () {
             console.log(this.events[this.events.length - 1]); 
         },
         lastContainerClickedEnd: function() {
-            if(this.lastContainerClickedEnd != '' || this.lastContainerClickedEnd < this.lastContainerClickedStart) this.setLastEvent();
+            if(this.lastContainerClickedEnd != '' || this.lastContainerClickedEnd >= this.lastContainerClickedStart) this.setLastEvent();
         }
     },
     methods: {
