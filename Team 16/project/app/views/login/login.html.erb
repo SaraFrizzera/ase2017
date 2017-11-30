@@ -25,11 +25,12 @@
                     </div>
                     <div class="wrap">
                         <p class="form-title">
-                        Sign In</p>
+                        App Fatturazione</p>
                         <div class="loginBox">
                             <input v-model="username" type="text" placeholder="Username" class="BasicInput"/> <br>
                             <input v-model="password" type="password" placeholder="Password" class="BasicInput"/><br>
-                            <input v-on:click="login" value="Sign In" class="btn btn-success btn-sm loginBtn" />
+                            <button v-on:click="primaryBtnAction" class="btn btn-success btn-sm loginBtn" >{{primaryBtntext}}</button> <br>
+                            <p v-on:click="toggleMode" class="whiteText">{{secondaryBtntext}}</p>
                         </div>
                     </div>
                 </div>
@@ -49,28 +50,81 @@
       el: '#app',
       data: {
         username: '',
-        password: ''
+        password: '',
+        secondaryBtntext: 'sign in',
+        primaryBtntext: 'log in',
+        loginMode: true
     },
     methods: {
-        login: function (event) {
-            console.log(this.username + this.password);
-
-            axios({
-              method: 'get',
-              url: '/login',
-              headers: {
-                'Content-Type': 'application/json',
-                'username': this.username,
-                'password': this.password
+        primaryBtnAction: function (event) {
+            if(this.loginMode)
+            {
+                logIn(this.username + this.password);
+                return;
             }
-        })
-            .then(function (response) {
-                localStorage.setItem('user', JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-                toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!')
-            });
+
+            signIn(this.username + this.password);
+        },
+        toggleMode: function (event) {
+            this.loginMode = !this.loginMode;
+
+            if(this.loginMode)
+            {
+                this.secondaryBtntext='sign in';
+                this.primaryBtntext='log in';
+                return;
+            }
+
+            this.secondaryBtntext='log in';
+            this.primaryBtntext='sign in';
         }
     }
-})
+});
+
+function logIn(username, password)
+{
+    axios({
+            method: 'get',
+            url: '/login',
+            headers: {
+            'Content-Type': 'application/json',
+            'username': username,
+            'password': password
+        }
+    })
+    .then(function (response) {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        GoToMainBoard();    
+    })
+    .catch(function (error) {
+        toastr.warning('Username o password errati')
+    });
+}
+
+function signIn(username, password)
+{
+    axios({
+            method: 'post',
+            url: '/signin',
+            headers: {
+            'Content-Type': 'application/json',
+            'username': username,
+            'password': password
+        }
+    })
+    .then(function (response) {
+        localStorage.setItem('user', JSON.stringify(response.data));    
+        GoToMainBoard();    
+    })
+    .catch(function (error) {
+        toastr.warning('Errore Durante la registrazione')
+    });
+}
+
+function GoToMainBoard()
+{
+    //TODO
+    console.log("todo");
+}
+
 </script>

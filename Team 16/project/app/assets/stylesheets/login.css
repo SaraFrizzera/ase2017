@@ -155,3 +155,14 @@ form.login a:hover {
 .pass-reset input[type="submit"]:hover {
     transition: background-color 0.5s ease;
 }
+
+.whiteText
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    color: #FFFFFF;
+    text-decoration: underline;
+    cursor: pointer; 
+}
