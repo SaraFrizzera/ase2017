@@ -17,4 +17,5 @@
 //= require bootstrap.min
 //= require hammer.min.js
 //= require bootstrap-timepicker.min
+//= require axios
 //= require_tree .

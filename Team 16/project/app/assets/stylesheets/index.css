@@ -97,10 +97,10 @@ td {
     margin: 2% !important;
 }
 
-form div {
+.event-info div div {
     width: 96% !important;
     margin: 2%;
 }
-form button {
+.event-info div button {
     margin: 2% !important;
 }

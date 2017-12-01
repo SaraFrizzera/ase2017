@@ -7,6 +7,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     
     <script src="https://use.fontawesome.com/6ca3ee8528.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
 
 </head>
 
@@ -21,6 +22,7 @@
         <div class="row">
             <div class="col col-3">
                 <h3>Logged in as {{ username }}</h3>
+                {{ companies }}
             </div>
             <div class="col col-9">
                 <table class="table table-bordered">
@@ -44,9 +46,9 @@
                                         <%= hour if hour<25 %>
                                     </div>
                                 </td>
-                                <% (1..7).each do |day|%>
+                                <% (Time.now.day..Time.now.day + 7).each do |day|%>
                                     <td>
-                                        <div class="event-wrapper" id="<%= hour-1  %>-<%= day  %>"></div>
+                                        <div class="event-wrapper" id="<%= hour-1  %>-<%= day  %>_<%= Time.now.month%>_<%= Time.now.year%>"></div>
                                     </td>
                                 <% end %>
                             </tr>
@@ -61,13 +63,22 @@
                     <div class="event-info-wrapper">
                         <div class="event-info">
                             <h4>Add Event as {{ username }}</h4>
-                            <form>
+                            <form action="javascript: app.createActivity()">
                                 <div class="form-group">
                                   <label for="desc">Stuff done</label>
-                                  <input type="text" class="form-control" id="desc" aria-describedby="desc" placeholder="Stuff done" v-model="lastEventDesc">
+                                  <input type="text" class="form-control" id="desc" aria-describedby="desc" placeholder="Stuff done" v-model="lastEventDesc" required>
                                   <small id="descHelp" class="form-text text-muted">Hey now, you're a rock star, get the show on, get paid!</small>
                                 </div>
                                 
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Select the company</label>
+                                    <select class="form-control" id="exampleFormControlSelect1" v-model="companyVat" required>
+                                        <option v-for="company in companies" v-bind:value="company.vat_number">
+                                            {{ company.company_name }}
+                                        </option>
+                                    </select>
+                                </div>
+
                                 <div class="form-group">
                                   <label for="start-time-event-creation">Start time</label>
                                   <input type="text" class="form-control" id="start-time-event-creation" aria-describedby="start-time-event-creation" v-model="lastContainerClickedStart" disabled>
@@ -75,10 +86,10 @@
                                 
                                 <div class="form-group">
                                   <label for="end-time-event-creation">End time</label>
-                                  <input type="text" class="form-control" id="end-time-event-creation" aria-describedby="end-time-event-creation" v-model="lastContainerClickedEnd">
+                                  <input type="text" class="form-control" id="end-time-event-creation" aria-describedby="end-time-event-creation" v-model="lastContainerClickedEnd" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                              </form>
+                            </form>
                         </div>
                     </div>
                 </div>
