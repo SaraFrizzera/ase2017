@@ -49,6 +49,8 @@ td {
     width: 100%;
     background-color: cornflowerblue;
     position: absolute;
+    z-index: 5;
+    pointer-events: none;
 }
 
 .just-created-event {
@@ -97,10 +99,23 @@ td {
     margin: 2% !important;
 }
 
-.event-info div div {
+form div {
     width: 96% !important;
     margin: 2%;
 }
-.event-info div button {
+form button {
     margin: 2% !important;
+}
+
+.event > p {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    padding: 5px;
+    margin: 0;
+    font-size: 1rem;
+    text-align: right;
+}
+.unusable {
+    pointer-events: none;
 }

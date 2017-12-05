@@ -9,7 +9,8 @@ var app = new Vue({
         username: 'matteo',
         companies: [
             { companyName: null }
-        ]
+        ],
+        loaded: 0
     },
     watch: {
         events: function () {
@@ -17,6 +18,9 @@ var app = new Vue({
         },
         lastContainerClickedEnd: function () {
             if (this.lastContainerClickedEnd != '' || this.lastContainerClickedEnd >= this.lastContainerClickedStart || this.lastContainerClickedEnd < 24) this.setLastEvent();
+        },
+        loaded: function() {
+            if(this.loaded == 1) this.loaded = 'ok';
         }
     },
     methods: {
@@ -36,6 +40,7 @@ var app = new Vue({
         addEvent: function () {
             // $('#start-time-add-event').timepicker('setTime', this.lastContainerClicked.start + ':00');
             // $('#end-time-add-event').timepicker('setTime', this.lastContainerClicked.end + ':00');
+            $('.just-created-event').removeClass('event-animation-creation');
             $('.just-created-event').height(this.cellHeight * this.lastContainerClickedLength);
             if (!$('#overlay').hasClass('show-overlay')) this.addDetailsToEvent();
         },
@@ -52,24 +57,25 @@ var app = new Vue({
             })
                 .then(function (response) {
                     app.companies = response.data;
+                    app.loaded = 1;
                     //this.companies = response.data;
                     //console.log(this.companies);
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    alert(error);
                 });
         },
         validateDayMonthTime: function () {
-            app.lastContainerClickedDay.day = (app.lastContainerClickedDay.day < 10) ? '0' + app.lastContainerClickedDay.day : app.lastContainerClickedDay.day;
-            app.lastContainerClickedDay.month = (app.lastContainerClickedDay.month < 10) ? '0' + app.lastContainerClickedDay.month : app.lastContainerClickedDay.month;
-            app.lastContainerClickedEnd = (app.lastContainerClickedEnd < 10) ? '0' + app.lastContainerClickedEnd : app.lastContainerClickedEnd;
-            app.lastContainerClickedStart = (app.lastContainerClickedStart < 10) ? '0' + app.lastContainerClickedStart : app.lastContainerClickedStart;
+            app.lastContainerClickedDay.formattedDay = (app.lastContainerClickedDay.day < 10) ? '0' + app.lastContainerClickedDay.day : app.lastContainerClickedDay.day;
+            app.lastContainerClickedDay.formattedMonth = (app.lastContainerClickedDay.month < 10) ? '0' + app.lastContainerClickedDay.month : app.lastContainerClickedDay.month;
+            app.lastContainerClickedFormattedEnd = (app.lastContainerClickedEnd < 10) ? '0' + app.lastContainerClickedEnd : app.lastContainerClickedEnd;
+            app.lastContainerClickedFormattedStart = (app.lastContainerClickedStart < 10) ? '0' + app.lastContainerClickedStart : app.lastContainerClickedStart;
         },
         getISOStringStartTime: function () {
-            return moment(app.lastContainerClickedDay.year + '-' + app.lastContainerClickedDay.day + '-' + app.lastContainerClickedDay.month + 'T' + app.lastContainerClickedStart).toISOString();
+            return moment(app.lastContainerClickedDay.year + '-' + app.lastContainerClickedDay.formattedDay + '-' + app.lastContainerClickedDay.formattedMonth + 'T' + app.lastContainerClickedFormattedStart).toISOString();
         },
         getISOStringEndTime: function () {
-            return moment(app.lastContainerClickedDay.year + '-' + app.lastContainerClickedDay.day + '-' + app.lastContainerClickedDay.month + 'T' + app.lastContainerClickedEnd).toISOString();
+            return moment(app.lastContainerClickedDay.year + '-' + app.lastContainerClickedDay.formattedDay + '-' + app.lastContainerClickedDay.formattedMonth + 'T' + app.lastContainerClickedFormattedEnd).toISOString();
         },
         createActivity: function () {
             app.validateDayMonthTime();
@@ -79,21 +85,55 @@ var app = new Vue({
             console.log(app.getISOStringEndTime());
             //console.log(new Date(parseInt(app.lastContainerClickedDay.year), parseInt(app.lastContainerClickedDay.month), parseInt(app.lastContainerClickedDay.day), parseInt(app.lastContainerClickedStart), 0,0,0).toISOString());
             //console.log(app.lastContainerClickedStart);
-            axios.post('http://localhost:3000/activity', {
-                username: app.username,
-                vatNumber: app.companyVat,
-                startTime: app.getISOStringStartTime(),
-                endTime: app.getISOStringEndTime(),
-                ContentType: 'application/json'
-            })
+            axios({
+                method: 'post',
+                url: '/activity',
+                headers: {
+                    'Content-Type': 'application/json',
+                    username: app.username,
+                    vatNumber: app.companyVat,
+                    startTime: app.getISOStringStartTime(),
+                    endTime: app.getISOStringEndTime()
+                },
+                params: {
+                    username: app.username,
+                    vatNumber: app.companyVat,
+                    startTime: app.getISOStringStartTime(),
+                    endTime: app.getISOStringEndTime()
+                }
+              })
                 .then(function (response) {
-                    console.log(response);
+                    $('.just-created-event > p').text('Worked for ' + app.companies.find(function(element) {
+                        return element.vat_number == app.companyVat;
+                    }).company_name);
+                    //console.log($('.just-created-event > p').data());
+                    app.resetViewAfterEventCreatedFull(true);
                     //this.companies = response.data;
                     //console.log(this.companies);
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    alert(error);
                 });
+        },
+        resetViewAfterEventCreated: function() {
+            $('#overlay').removeClass('pre-show-overlay show-overlay');
+            $('.just-created-event').addClass('event-already-created');
+            $('.just-created-event').removeClass('just-created-event');
+            this.lastEventDesc = '';
+            this.lastContainerClickedStart =  null;
+            this.lastContainerClickedEnd =  null;
+        },
+        resetViewAfterEventCreatedFull: function(isFull) {
+            if(!isFull) this.resetViewAfterEventCreated();
+            else {
+                var k = app.lastContainerClickedStart;
+                var c = app.lastContainerClickedEnd;
+                for(var i = k; i < c; i++) {
+                    $('#' + i + '-' + this.lastContainerClickedDay.day + '_' + this.lastContainerClickedDay.month + '_' + this.lastContainerClickedDay.year).addClass('unusable');
+                    console.log($('#' + i + '-' + this.lastContainerClickedDay.day + '_' + this.lastContainerClickedDay.month + '_' + this.lastContainerClickedDay.year).hasClass('unusable'));
+                }
+                this.resetViewAfterEventCreated();
+            }
         }
     },
     computed: {
@@ -105,21 +145,24 @@ var hammertime = new Hammer(document.getElementById('table-body'), { threshold: 
 hammertime.get('pan').set({ direction: Hammer.DIRECTION_VERTICAL });
 
 hammertime.on('panstart', function (ev_start) {
-    $('#' + app.currentContainer).append('<div class="event event-animation-creation"></div>');
-    hammertime.on('pan', function (ev_pan) {
-        $('.event-animation-creation').height(Math.sqrt(Math.pow((ev_pan.center.y - ev_start.center.y), 2)));
-        // app.events.push({
-        //     x: ev_start.center.x,
-        //     y: ev_start.center.y,
-        //     length: ev_end.center.y - ev_start.center.y
-        // });
-    });
+    if(!$('#' + ev_start.target.id).hasClass('unusable')) {
+        $('#' + app.currentContainer).append('<div class="event event-animation-creation"><p></p></div>');
+        hammertime.on('pan', function (ev_pan) {
+            $('.event-animation-creation').height(Math.sqrt(Math.pow((ev_pan.center.y - ev_start.center.y), 2)));
+            // app.events.push({
+            //     x: ev_start.center.x,
+            //     y: ev_start.center.y,
+            //     length: ev_end.center.y - ev_start.center.y
+            // });
+        });
+    }
 });
 
 $(window).resize(function () {
     app.setCellHeight();
     app.getCompanies();
     app.setLastEvent();
+    // app.resizeEvents();
     // app.tablePosition = {
     //     x: document.getElementById('table-body').getBoundingClientRect().x
     // }
@@ -128,6 +171,13 @@ $(window).resize(function () {
 $(document).ready(function () {
     app.setCellHeight();
     app.getCompanies();
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27 && $('#overlay').hasClass('show-overlay')) { // escape key maps to keycode `27`
+            $('.just-created-event').remove();
+            app.resetViewAfterEventCreated(false);
+           // <DO YOUR WORK HERE>
+       }
+   });
     // $('#start-time-add-event').timepicker(settings).on('changeTime.timepicker', function(e) {
     //     app.lastContainerClicked = {
     //         start: e.time.hours
@@ -142,7 +192,7 @@ $(document).ready(function () {
 $(".event-wrapper").mousedown(function (obj) {
     app.currentContainer = obj.target.id;
     $(".event-wrapper").mouseup(function (obj_end) {
-        addNewEvent(obj, obj_end);
+        if(obj.target.id != obj_end.target.id && !$('#' + obj.target.id).hasClass('unusable')) addNewEvent(obj, obj_end);
     });
 });
 

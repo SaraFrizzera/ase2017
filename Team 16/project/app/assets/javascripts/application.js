@@ -15,7 +15,7 @@
 //= require jquery3
 //= require vue
 //= require bootstrap.min
-//= require hammer.min.js
 //= require bootstrap-timepicker.min
 //= require axios
+//= require hammer.min.js
 //= require_tree .
