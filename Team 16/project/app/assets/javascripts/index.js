@@ -192,7 +192,7 @@ $(document).ready(function () {
 $(".event-wrapper").mousedown(function (obj) {
     app.currentContainer = obj.target.id;
     $(".event-wrapper").mouseup(function (obj_end) {
-        if(obj.target.id != obj_end.target.id && !$('#' + obj.target.id).hasClass('unusable')) addNewEvent(obj, obj_end);
+        if(obj.target.id != obj_end.target.id && !$('#' + obj.target.id).hasClass('unusable') && !$('#' + obj_end.target.id).hasClass('unusable')) addNewEvent(obj, obj_end);
     });
 });
 

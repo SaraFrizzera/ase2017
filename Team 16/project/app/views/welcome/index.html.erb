@@ -30,13 +30,13 @@
                     <thead>
                         <tr>
                             <th class="first-column"></th>
-                            <th>GIORNO1</th>
-                            <th>GIORNO2</th>
-                            <th>GIORNO3</th>
-                            <th>GIORNO4</th>
-                            <th>GIORNO5</th>
-                            <th>GIORNO6</th>
-                            <th>GIORNO7</th>
+                            <%  i = 0
+                                (Time.now.day..Time.now.day + 7).each do |day|%>
+                                <th style="color: <%= "grey" if Time.now.wday + i == 7 || Time.now.wday + i == 6%>">
+                                    <%= day  %>/<%= Time.now.month%>
+                                    <% i = i + 1 %>
+                                </th>
+                            <% end %>
                         </tr>
                     </thead>
                     <tbody id="table-body">

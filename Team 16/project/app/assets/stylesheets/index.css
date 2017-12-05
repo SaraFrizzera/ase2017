@@ -119,3 +119,8 @@ form button {
 .unusable {
     pointer-events: none;
 }
+th {
+    text-align: right;
+    height: 10vh;
+    font-size: 2rem;
+}
