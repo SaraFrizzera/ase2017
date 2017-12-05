@@ -33,7 +33,7 @@
                             <%  i = 0
                                 (Time.now.day..Time.now.day + 7).each do |day|%>
                                 <th style="color: <%= "grey" if Time.now.wday + i == 7 || Time.now.wday + i == 6%>">
-                                    <%= day  %>/<%= Time.now.month%>
+                                    <%= "0#{day}" if day < 10%><%=day if day >= 10%>/<%="0#{@Time.now.month}" if Time.now.month < 10%><%=Time.now.month if Time.now.month >= 10%>
                                     <% i = i + 1 %>
                                 </th>
                             <% end %>
