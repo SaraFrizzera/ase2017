@@ -84,7 +84,7 @@
 function logIn(username, password)
 {
     axios({
-            method: 'get',
+            method: 'post',
             url: '/login',
             headers: {
             'Content-Type': 'application/json',
@@ -123,8 +123,7 @@ function signIn(username, password)
 
 function GoToMainBoard()
 {
-    //TODO
-    console.log("todo");
+    window.location.href = "/dashboard";
 }
 
 </script>

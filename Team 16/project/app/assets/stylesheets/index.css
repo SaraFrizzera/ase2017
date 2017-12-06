@@ -104,3 +104,7 @@ form div {
 form button {
     margin: 2% !important;
 }
+
+body{
+    background: none;
+}
