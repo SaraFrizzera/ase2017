@@ -1,7 +1,8 @@
 @import "toastr";
 
 body {
-    background: url('http://farm3.staticflickr.com/2832/12303719364_c25cecdc28_b.jpg') fixed;
+    background: url('http://orig03.deviantart.net/618a/f/2009/035/3/8/apple_aqua_wallpaper_by_vista_os_x_user.jpg') fixed;
+    transition: background 1s linear;
     background-size: cover;
     padding: 0;
     margin: 0;
@@ -17,12 +18,23 @@ body {
     z-index: 99;
 }
 
-p.form-title {
+.form-title-user {
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
     font-weight: 600;
     text-align: center;
     color: #FFFFFF;
+    margin-top: 5%;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.form-title-company {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: #808080;
     margin-top: 5%;
     text-transform: uppercase;
     letter-spacing: 4px;

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'login#login.html' # di defualt mi manda al welcome index
-  get 'dashboard', to: 'welcome#index.html' # di defualt mi manda al welcome index
+  get 'userMain', to: 'welcome#index.html' # di defualt mi manda al welcome index
 
   post 'user', to: 'user#create' # headers => username, password. Post a user (localhost). "to:" richiama la classe usercontroller e la funzione create
   get 'user', to: 'user#find_specific' # headers => username.
@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get 'activities', to: 'activity#find_all' # headers =>
   delete 'activity', to: 'activity#delete' # headers => username, vatNumber, startTime, endTime
 
-  post 'signin', to: 'login#sign_in' # headers => username, password.
-  post 'login', to: 'login#log_in' # headers => username, password.
+  post 'signinUser', to: 'login#sign_in_user' # headers => username, password.
+  post 'loginUser', to: 'login#log_in_user' # headers => username, password.
+  post 'signinCompany', to: 'login#sign_in_company' # headers => username, password.
+  post 'loginCompany', to: 'login#log_in_company' # headers => username, password.
 end

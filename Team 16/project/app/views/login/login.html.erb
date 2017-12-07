@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
 
     <%= csrf_meta_tags %>
-    <%= javascript_include_tag 'toastr.js', :cache => 'myfiles' %>
+    <%= javascript_include_tag 'toastr.js','login_api_calls.js', :cache => 'myfiles' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 
@@ -24,13 +24,14 @@
                         </div>
                     </div>
                     <div class="wrap">
-                        <p class="form-title">
+                        <p class="form-title-user">
                         App Fatturazione</p>
                         <div class="loginBox">
-                            <input v-model="username" type="text" placeholder="Username" class="BasicInput"/> <br>
-                            <input v-model="password" type="password" placeholder="Password" class="BasicInput"/><br>
+                            <input v-model="firstValue" type="text" :placeholder="firstValueText" class="BasicInput"/> <br>
+                            <input v-model="secondValue" type="password" :placeholder="secondValueText" class="BasicInput"/><br>
                             <button v-on:click="primaryBtnAction" class="btn btn-success btn-sm loginBtn" >{{primaryBtntext}}</button> <br>
                             <p v-on:click="toggleMode" class="whiteText">{{secondaryBtntext}}</p>
+                            <p v-on:click="toggleLoginType" class="whiteText">{{changeModeBtnText}}</p>
                         </div>
                     </div>
                 </div>
@@ -49,27 +50,38 @@
     var app = new Vue({
       el: '#app',
       data: {
-        username: '',
-        password: '',
+        firstValue: '',
+        secondValue: '',
         secondaryBtntext: 'sign in',
         primaryBtntext: 'log in',
-        loginMode: true
+        changeModeBtnText: 'Company area',
+        firstValueText: 'username',
+        secondValueText: 'password',
+        loginMode: true,
+        userMode: true
     },
     methods: {
         primaryBtnAction: function (event) {
-            if(this.loginMode)
-            {
-                logIn(this.username + this.password);
+            if(this.loginMode){
+                if(this.userMode){
+                    userLogIn(this.firstValue, this.secondValue);
+                    return;
+                }
+                companyLogIn(this.firstValue, this.secondValue);
                 return;
             }
 
-            signIn(this.username + this.password);
+            if(this.userMode){
+                userSignIn(this.firstValue, this.secondValue);
+                return;
+            }
+
+            companySignIn(this.firstValue, this.secondValue);
         },
         toggleMode: function (event) {
             this.loginMode = !this.loginMode;
 
-            if(this.loginMode)
-            {
+            if(this.loginMode)            {
                 this.secondaryBtntext='sign in';
                 this.primaryBtntext='log in';
                 return;
@@ -77,53 +89,53 @@
 
             this.secondaryBtntext='log in';
             this.primaryBtntext='sign in';
+        },
+        toggleLoginType: function (event){
+            this.userMode=!this.userMode;
+            if(this.userMode){
+                this.changeModeBtnText='Company area';
+                this.firstValueText = 'username';
+                this.secondValueText = 'password';
+            }
+            else{
+                this.changeModeBtnText='User area';
+                this.firstValueText = 'company name';
+                this.secondValueText = 'vat number';
+            }
+
+            changeBackground(this.userMode);
         }
     }
 });
 
-function logIn(username, password)
-{
-    axios({
-            method: 'post',
-            url: '/login',
-            headers: {
-            'Content-Type': 'application/json',
-            'username': username,
-            'password': password
+function GoToMainBoard(mode){
+    if(mode == 1){ //user view
+        window.location.href = "/userMain";
+        return;
+    }
+    if(mode == 2){ // company view
+        window.location.href = "/userMain";//todo
+        return;
+    }
+
+    //admin view
+    window.location.href = "/userMain";//todo
+}
+
+function changeBackground(userMode){
+    $('body').fadeTo('slow', 0.3, function()
+    {
+        if(!userMode){ // company mode
+            $(this).css('background-image', "url('http://www.mineks.com/images/pages/22935city_scape5b.jpg')");
+            $('.form-title-user').addClass("form-title-company");
+            $('.form-title-user').removeClass("form-title-user");
+            return;
         }
-    })
-    .then(function (response) {
-        localStorage.setItem('user', JSON.stringify(response.data));
-        GoToMainBoard();    
-    })
-    .catch(function (error) {
-        toastr.warning('Username o password errati')
-    });
-}
 
-function signIn(username, password)
-{
-    axios({
-            method: 'post',
-            url: '/signin',
-            headers: {
-            'Content-Type': 'application/json',
-            'username': username,
-            'password': password
-        }
-    })
-    .then(function (response) {
-        localStorage.setItem('user', JSON.stringify(response.data));    
-        GoToMainBoard();    
-    })
-    .catch(function (error) {
-        toastr.warning('Errore Durante la registrazione')
-    });
-}
+        $(this).css('background-image', "url('http://orig03.deviantart.net/618a/f/2009/035/3/8/apple_aqua_wallpaper_by_vista_os_x_user.jpg')");
+        $('.form-title-company').addClass("form-title-user");
+        $('.form-title-company').removeClass("form-title-company");
 
-function GoToMainBoard()
-{
-    window.location.href = "/dashboard";
+    }).delay(200).fadeTo('slow', 10);
 }
-
 </script>
