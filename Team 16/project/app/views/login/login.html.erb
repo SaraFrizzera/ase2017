@@ -123,8 +123,7 @@ function GoToMainBoard(mode){
 }
 
 function changeBackground(userMode){
-    $('body').fadeTo('slow', 0.3, function()
-    {
+    $('body').fadeTo('slow', 0.3, function(){
         if(!userMode){ // company mode
             $(this).css('background-image', "url('http://www.mineks.com/images/pages/22935city_scape5b.jpg')");
             $('.form-title-user').addClass("form-title-company");
