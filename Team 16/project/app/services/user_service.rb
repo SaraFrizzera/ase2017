@@ -13,9 +13,10 @@ class UserService < BaseService
 
   def find_user(headers) # funzione che trova uno user grazie al suo username in input
     username = headers['username'] # salva in username il valore dell'header username
-    validate_params([username]) # controlla che sia corretto
+    password = headers['password']
+    validate_params([username, password]) # controlla che sia corretto
 
-    User.find_by(username: username) # cerca tra gli users, quello con lo username in input
+    User.find_by(username: username, password: password) # cerca tra gli users, quello con lo username in input
   end
 
   def find_all_users

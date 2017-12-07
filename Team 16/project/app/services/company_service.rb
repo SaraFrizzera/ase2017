@@ -17,7 +17,7 @@ class CompanyService < BaseService
     Company.find_by(company_name: company_name)
   end
 
-  def find_all_companies
+  def find_companies
     Company.all
   end
 

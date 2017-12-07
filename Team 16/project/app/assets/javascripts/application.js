@@ -16,6 +16,7 @@
 //= require vue
 //= require toastr
 //= require bootstrap.min
-//= require hammer.min.js
 //= require bootstrap-timepicker.min
+//= require axios
+//= require hammer.min.js
 //= require_tree .

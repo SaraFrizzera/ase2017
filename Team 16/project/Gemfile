@@ -67,6 +67,8 @@ gem 'jquery-rails'
 
 gem 'font-awesome-sass'
 
-gem 'wdm'
+gem 'axios_rails'
+
+# gem 'wdm'
 
 gem 'toastr-rails'
