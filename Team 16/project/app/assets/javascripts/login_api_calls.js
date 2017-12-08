@@ -41,7 +41,6 @@ function userSignIn(username, password){
 }
 
 function companyLogIn(companyName, vatNumber){
-    debugger;
     axios({
             method: 'post',
             url: '/loginCompany',
@@ -59,7 +58,6 @@ function companyLogIn(companyName, vatNumber){
         },500);
     })
     .catch(function (error) {
-        debugger;
         toastr.warning('Nome azienda o partita IVA errati')
     });
 }
