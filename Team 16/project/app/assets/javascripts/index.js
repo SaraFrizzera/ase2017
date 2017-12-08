@@ -69,7 +69,7 @@ var app = new Vue({
             app.lastContainerClickedDay.formattedMonth = (app.lastContainerClickedDay.month < 10) ? '0' + app.lastContainerClickedDay.month : app.lastContainerClickedDay.month;
             app.lastContainerClickedFormattedEnd = (app.lastContainerClickedEnd < 10) ? '0' + app.lastContainerClickedEnd : app.lastContainerClickedEnd;
             app.lastContainerClickedFormattedStart = (app.lastContainerClickedStart < 10) ? '0' + app.lastContainerClickedStart : app.lastContainerClickedStart;
-            app.lastContainerClickedFormattedEnd = (app.lastContainerClickedFormattedEnd == 24) ? 23 : app.lastContainerClickedFormattedEnd;
+            
         },
         getISOStringStartTime: function () {
             return '' + app.lastContainerClickedDay.year + '-' + app.lastContainerClickedDay.formattedMonth + '-' + app.lastContainerClickedDay.formattedDay + 'T' + app.lastContainerClickedFormattedStart + ':00:00.000Z';
@@ -85,35 +85,41 @@ var app = new Vue({
             console.log(app.getISOStringEndTime());
             //console.log(new Date(parseInt(app.lastContainerClickedDay.year), parseInt(app.lastContainerClickedDay.month), parseInt(app.lastContainerClickedDay.day), parseInt(app.lastContainerClickedStart), 0,0,0).toISOString());
             //console.log(app.lastContainerClickedStart);
-            axios({
-                method: 'post',
-                url: '/activity',
-                headers: {
-                    'Content-Type': 'application/json',
-                    username: app.user.username,
-                    vatNumber: app.companyVat,
-                    startTime: app.getISOStringStartTime(),
-                    endTime: app.getISOStringEndTime()
-                },
-                params: {
-                    username: app.username,
-                    vatNumber: app.companyVat,
-                    startTime: app.getISOStringStartTime(),
-                    endTime: app.getISOStringEndTime()
-                }
-              })
-                .then(function (response) {
-                    $('.just-created-event > p').text('Worked for ' + app.companies.find(function(element) {
-                        return element.vat_number == app.companyVat;
-                    }).company_name);
-                    //console.log($('.just-created-event > p').data());
-                    app.resetViewAfterEventCreatedFull(true);
-                    //this.companies = response.data;
-                    //console.log(this.companies);
-                })
-                .catch(function (error) {
-                    alert(error);
-                });
+            if(app.lastContainerClickedFormattedEnd == 24){
+                alert('Can\'t display this task');
+                $('.just-created-event').remove();
+                this.resetViewAfterEventCreatedFull(false);
+            } else {
+                axios({
+                    method: 'post',
+                    url: '/activity',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        username: app.user.username,
+                        vatNumber: app.companyVat,
+                        startTime: app.getISOStringStartTime(),
+                        endTime: app.getISOStringEndTime()
+                    },
+                    params: {
+                        username: app.username,
+                        vatNumber: app.companyVat,
+                        startTime: app.getISOStringStartTime(),
+                        endTime: app.getISOStringEndTime()
+                    }
+                  })
+                    .then(function (response) {
+                        $('.just-created-event > p').text('Worked for ' + app.companies.find(function(element) {
+                            return element.vat_number == app.companyVat;
+                        }).company_name);
+                        //console.log($('.just-created-event > p').data());
+                        app.resetViewAfterEventCreatedFull(true);
+                        //this.companies = response.data;
+                        //console.log(this.companies);
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    });
+            }
         },
         resetViewAfterEventCreated: function() {
             $('#overlay').removeClass('pre-show-overlay show-overlay');
