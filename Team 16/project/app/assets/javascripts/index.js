@@ -6,7 +6,6 @@ var app = new Vue({
         lastContainerClickedStart: null,
         lastContainerClickedEnd: null,
         lastEventDesc: '',
-        username: 'matteo',
         companies: [
             { companyName: null }
         ],
@@ -57,7 +56,7 @@ var app = new Vue({
             })
                 .then(function (response) {
                     app.companies = response.data;
-                    app.loaded = 1;
+                    app.addEventsToCalendar();
                     //this.companies = response.data;
                     //console.log(this.companies);
                 })
@@ -70,12 +69,13 @@ var app = new Vue({
             app.lastContainerClickedDay.formattedMonth = (app.lastContainerClickedDay.month < 10) ? '0' + app.lastContainerClickedDay.month : app.lastContainerClickedDay.month;
             app.lastContainerClickedFormattedEnd = (app.lastContainerClickedEnd < 10) ? '0' + app.lastContainerClickedEnd : app.lastContainerClickedEnd;
             app.lastContainerClickedFormattedStart = (app.lastContainerClickedStart < 10) ? '0' + app.lastContainerClickedStart : app.lastContainerClickedStart;
+            app.lastContainerClickedFormattedEnd = (app.lastContainerClickedFormattedEnd == 24) ? 23 : app.lastContainerClickedFormattedEnd;
         },
         getISOStringStartTime: function () {
-            return moment(app.lastContainerClickedDay.year + '-' + app.lastContainerClickedDay.formattedDay + '-' + app.lastContainerClickedDay.formattedMonth + 'T' + app.lastContainerClickedFormattedStart).toISOString();
+            return '' + app.lastContainerClickedDay.year + '-' + app.lastContainerClickedDay.formattedMonth + '-' + app.lastContainerClickedDay.formattedDay + 'T' + app.lastContainerClickedFormattedStart + ':00:00.000Z';
         },
         getISOStringEndTime: function () {
-            return moment(app.lastContainerClickedDay.year + '-' + app.lastContainerClickedDay.formattedDay + '-' + app.lastContainerClickedDay.formattedMonth + 'T' + app.lastContainerClickedFormattedEnd).toISOString();
+            return '' + app.lastContainerClickedDay.year + '-' + app.lastContainerClickedDay.formattedMonth + '-' + app.lastContainerClickedDay.formattedDay + 'T' + app.lastContainerClickedFormattedEnd + ':00:00.000Z';
         },
         createActivity: function () {
             app.validateDayMonthTime();
@@ -90,7 +90,7 @@ var app = new Vue({
                 url: '/activity',
                 headers: {
                     'Content-Type': 'application/json',
-                    username: app.username,
+                    username: app.user.username,
                     vatNumber: app.companyVat,
                     startTime: app.getISOStringStartTime(),
                     endTime: app.getISOStringEndTime()
@@ -134,9 +134,49 @@ var app = new Vue({
                 }
                 this.resetViewAfterEventCreated();
             }
+        },
+        addEventsToCalendar: function() {
+            axios({
+                method: 'get',
+                url: '/activities',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+              })
+                .then(function (response) {
+                    response.data.forEach(function(element) {
+                        if(element.user_id == app.user.id) {
+                            var start_time = parseInt(element.start_time.split('T')[1].split(':')[0]);
+                            var end_time = parseInt(element.end_time.split('T')[1].split(':')[0]);
+                            var day = parseInt(element.start_time.split('T')[0].split('-')[2]);
+                            var month = parseInt(element.start_time.split('T')[0].split('-')[1]);
+                            var year = element.start_time.split('T')[0].split('-')[0];
+                            console.log(start_time + '-' + day + '-' + month + '-' + year);
+                            $('#' + start_time + '-' + day + '_' + month + '_' + year).append('<div class="event just-created-event"><p></p></div>');
+                            $('.just-created-event').height(app.cellHeight * (end_time - start_time));
+                            $('.just-created-event > p').text('Worked for ' + app.companies.find(function(wrapped_element) {
+                                return wrapped_element.id == element.company_id;
+                            }).company_name);
+                            $('.just-created-event').removeClass('just-created-event');
+                            var k = start_time;
+                            var c = end_time;
+                            for(var i = k; i < c; i++) {
+                                $('#' + i + '-' + day + '_' + month + '_' + year).addClass('unusable');
+                                console.log($('#' + i + '-' + day + '_' + month + '_' + year).hasClass('unusable'));
+                            }
+                        }
+                    });
+                    app.loaded = 1;
+                })
+                .catch(function (error) {
+                    alert(error);
+                });
         }
     },
     computed: {
+        user: function() {
+            return JSON.parse(window.localStorage.getItem('user'));
+        }
     }
 });
 
@@ -171,6 +211,7 @@ $(window).resize(function () {
 $(document).ready(function () {
     app.setCellHeight();
     app.getCompanies();
+    //app.addEventsToCalendar();
     $(document).keyup(function(e) {
         if (e.keyCode == 27 && $('#overlay').hasClass('show-overlay')) { // escape key maps to keycode `27`
             $('.just-created-event').remove();

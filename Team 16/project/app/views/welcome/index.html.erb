@@ -7,7 +7,6 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     
     <script src="https://use.fontawesome.com/6ca3ee8528.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
 
 </head>
 
@@ -21,7 +20,7 @@
     <div id="app">
         <div class="row">
             <div class="col col-3">
-                <h3>Logged in as {{ username }}</h3>
+                <h3>Logged in as {{ user.username }}</h3>
                 <h4 v-show="loaded">Ready to go!</h4>
                 <h4 v-show="!loaded">Loading</h4>
             </div>
@@ -32,7 +31,7 @@
                             <th class="first-column"></th>
                             <%  i = 0
                                 (Time.now.day..Time.now.day + 7).each do |day|%>
-                                <th style="color: <%= "grey" if Time.now.wday + i == 7 || Time.now.wday + i == 6%>">
+                                <th style="color: <%= "white" if Time.now.wday + i == 7 || Time.now.wday + i == 6%>">
                                     <%= "0#{day}" if day < 10%><%=day if day >= 10%>/<%="0#{@Time.now.month}" if Time.now.month < 10%><%=Time.now.month if Time.now.month >= 10%>
                                     <% i = i + 1 %>
                                 </th>
@@ -63,7 +62,7 @@
                 <div class="col col-3">
                     <div class="event-info-wrapper">
                         <div class="event-info">
-                            <h4>Add Event as {{ username }}</h4>
+                            <h4>Add Event as {{ user.username }}</h4>
                             <form action="javascript: app.createActivity()">
                                 <div class="form-group">
                                   <label for="desc">Stuff done</label>

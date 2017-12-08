@@ -47,7 +47,7 @@ td {
 
 .event {
     width: 100%;
-    background-color: cornflowerblue;
+    background-color: #FF9C00;
     position: absolute;
     z-index: 5;
     pointer-events: none;
