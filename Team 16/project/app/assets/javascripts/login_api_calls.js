@@ -11,13 +11,13 @@ function userLogIn(username, password){
     })
     .then(function (response) {
         localStorage.setItem('user', JSON.stringify(response.data));
-        toastr.success('Bentornato '+username)
+        toastr.success('Bentornato '+username);
         setTimeout(function(){
             GoToMainBoard(1);
         },500);
     })
     .catch(function (error) {
-        toastr.warning('Username o password errati')
+        toastr.warning('Username o password errati');
     });
 }
 
@@ -36,7 +36,7 @@ function userSignIn(username, password){
         GoToMainBoard(1);    
     })
     .catch(function (error) {
-        toastr.warning('Errore durante la registrazione, username già in uso o valori non validi')
+        toastr.warning('Errore durante la registrazione, username già in uso o valori non validi');
     });
 }
 
@@ -53,14 +53,14 @@ function companyLogIn(companyName, vatNumber){
     })
     .then(function (response) {
         localStorage.setItem('company', JSON.stringify(response.data));
-        toastr.success('login eseguito come '+companyName)
+        toastr.success('login eseguito come '+companyName);
         setTimeout(function(){
             GoToMainBoard(2);
         },500);
     })
     .catch(function (error) {
         debugger;
-        toastr.warning('Nome azienda o partita IVA errati')
+        toastr.warning('Nome azienda o partita IVA errati');
     });
 }
 
@@ -79,6 +79,6 @@ function companySignIn(companyName, vatNumber){
         GoToMainBoard(2);    
     })
     .catch(function (error) {
-        toastr.warning('Errore Durante la registrazione, nome azienda già in uso o valori non validi')
+        toastr.warning('Errore Durante la registrazione, nome azienda già in uso o valori non validi');
     });
 }

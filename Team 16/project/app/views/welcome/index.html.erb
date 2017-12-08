@@ -4,7 +4,7 @@
 <head>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', 'index', media: 'all', 'data-turbolinks-track': 'reload' %>
     
     <script src="https://use.fontawesome.com/6ca3ee8528.js"></script>
 
@@ -31,7 +31,7 @@
                             <th class="first-column"></th>
                             <%  i = 0
                                 (Time.now.day..Time.now.day + 7).each do |day|%>
-                                <th style="color: <%= "white" if Time.now.wday + i == 7 || Time.now.wday + i == 6%>">
+                                <th style="color: <%= "grey" if Time.now.wday + i == 7 || Time.now.wday + i == 6%>">
                                     <%= "0#{day}" if day < 10%><%=day if day >= 10%>/<%="0#{@Time.now.month}" if Time.now.month < 10%><%=Time.now.month if Time.now.month >= 10%>
                                     <% i = i + 1 %>
                                 </th>
@@ -97,7 +97,7 @@
         </div>
     </div>
 
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'index', 'data-turbolinks-track': 'reload' %>
 </body>
 
 </html>
