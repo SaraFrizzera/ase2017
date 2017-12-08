@@ -15,14 +15,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="pr-wrap">
-                        <div class="pass-reset">
-                            <label>
-                            Enter the email you signed up with</label>
-                            <input type="email" placeholder="Email" />
-                            <input type="submit" value="Submit" class="pass-reset-submit btn btn-success btn-sm" />
-                        </div>
-                    </div>
                     <div class="wrap">
                         <p class="form-title-user">
                         App Fatturazione</p>
@@ -67,6 +59,7 @@
                     userLogIn(this.firstValue, this.secondValue);
                     return;
                 }
+                
                 companyLogIn(this.firstValue, this.secondValue);
                 return;
             }
@@ -81,7 +74,7 @@
         toggleMode: function (event) {
             this.loginMode = !this.loginMode;
 
-            if(this.loginMode)            {
+            if(this.loginMode){
                 this.secondaryBtntext='sign in';
                 this.primaryBtntext='log in';
                 return;

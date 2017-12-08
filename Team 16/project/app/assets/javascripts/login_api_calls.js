@@ -53,12 +53,13 @@ function companyLogIn(companyName, vatNumber){
     })
     .then(function (response) {
         localStorage.setItem('company', JSON.stringify(response.data));
-        toastr.success('login eseguito come '+username)
+        toastr.success('login eseguito come '+companyName)
         setTimeout(function(){
             GoToMainBoard(2);
         },500);
     })
     .catch(function (error) {
+        debugger;
         toastr.warning('Nome azienda o partita IVA errati')
     });
 }
