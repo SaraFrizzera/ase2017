@@ -11,10 +11,15 @@
 </head>
 
 <body>
-    
-
-
-    <%= javascript_include_tag 'application', 'company','data-turbolinks-track': 'reload' %>
+    <div id="app" class="container-fluid"> 
+        <h3>{{ company.company_name }} Dashboard</h3>
+        <div class="container-fluid" id="wrapper-users">
+            <div v-for="user in users">
+                {{ user.username }} {{ sum }}
+            </div>
+        </div>
+    </div>
+    <%= javascript_include_tag 'application', 'companyMain','data-turbolinks-track': 'reload' %>
 </body>
 
 </html>
