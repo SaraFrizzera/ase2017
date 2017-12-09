@@ -3,7 +3,9 @@ var app = new Vue({
     data: {
         activities: [],
         users: [],
-        sum: []
+        sum: 0,
+        loaded: 'nopz',
+        notLoaded: 'ok'
     },
     computed: {
         company: function() {
@@ -59,19 +61,15 @@ var app = new Vue({
                     alert(error);
                 });
         },
-        getHours: function() {
-            this.users.forEach(function(o_element, o_index, o_array) {
-                var sum = 0;
-                this.activities.forEach( function(element, index, array) {
-                    if(o_element.id == element.user_id) {
-                        var start_time = parseInt(element.start_time.split('T')[1].split(':')[0]);
-                        var end_time = parseInt(element.end_time.split('T')[1].split(':')[0]);
-                        console.log(sum + '' + start_time + '' + end_time);
-                        sum = sum + (end_time - start_time);
-                    }
-                    if(index == array.length - 1) app.sum[o_index] = sum;
-                });
-            });
+        setSum: function(h) {
+            this.sum = this.sum + h;
+        },
+        getSum: function() {
+            var s = this.sum;
+            this.sum = 0;
+            $('#isLoading').css('display', 'none');
+            $('#isReady').css('display', 'block');
+            return s;
         }
     }
 });
@@ -79,10 +77,9 @@ var app = new Vue({
 $(document).ready(function() {
     app.getActivities();
     app.getUsers();
-    app.getHours();
     console.log(app.activities);
     console.log(app.users);
-    console.log(app.sum[0]);
+    // console.log(app.sum[0]);
 });
 
 
