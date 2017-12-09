@@ -17,7 +17,7 @@ function userLogIn(username, password){
         },500);
     })
     .catch(function (error) {
-        toastr.warning('Username o password errati')
+        toastr.warning('Username o password errati');
     });
 }
 
@@ -58,7 +58,7 @@ function companyLogIn(companyName, vatNumber){
         },500);
     })
     .catch(function (error) {
-        toastr.warning('Nome azienda o partita IVA errati')
+        toastr.warning('Nome azienda o partita IVA errati');
     });
 }
 
