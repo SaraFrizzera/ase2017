@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root to: 'login#login.html' # di defualt mi manda al welcome index
   get 'userMain', to: 'welcome#index.html' # di defualt mi manda al welcome index
   get 'adminMain', to: 'admin#admin.html'
+  get 'companyMain', to: 'company#index.html'
 
   post 'user', to: 'user#create' # headers => username, password.
   get 'user', to: 'user#find_specific' # headers => username.
