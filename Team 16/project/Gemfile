@@ -69,6 +69,6 @@ gem 'font-awesome-sass'
 
 gem 'axios_rails'
 
-# gem 'wdm'
+gem 'wdm'
 
 gem 'toastr-rails'

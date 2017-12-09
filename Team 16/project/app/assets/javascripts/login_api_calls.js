@@ -13,6 +13,12 @@ function userLogIn(username, password){
         localStorage.setItem('user', JSON.stringify(response.data));
         toastr.success('Bentornato '+username)
         setTimeout(function(){
+            debugger;
+            if(response.data.user_type === 2){
+                GoToMainBoard(3);
+                return;
+            }
+            
             GoToMainBoard(1);
         },500);
     })
@@ -33,7 +39,7 @@ function userSignIn(username, password){
     })
     .then(function (response) {
         localStorage.setItem('user', JSON.stringify(response.data));
-        GoToMainBoard(1);    
+        GoToMainBoard(1);
     })
     .catch(function (error) {
         toastr.warning('Errore durante la registrazione, username già in uso o valori non validi')
