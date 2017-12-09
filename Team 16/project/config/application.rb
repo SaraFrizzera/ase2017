@@ -16,7 +16,7 @@ module ProgettoIng2
     # -- all .rb files in that directory are automatically loaded.
 
     config.after_initialize do
-      admin = User.find_by(username: 'a', password: 'a', user_type: 2) # todo change to admin
+      admin = User.find_by(username: 'a', password: 'a', user_type: 2) # TODO: change to admin
 
       unless admin
         admin = User.new username: 'a', password: 'a', user_type: 2 # admin creation
