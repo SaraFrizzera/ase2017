@@ -13,7 +13,6 @@ function userLogIn(username, password){
         localStorage.setItem('user', JSON.stringify(response.data));
         toastr.success('Bentornato '+username);
         setTimeout(function(){
-            debugger;
             if(response.data.user_type === 2){
                 GoToMainBoard(3);
                 return;
