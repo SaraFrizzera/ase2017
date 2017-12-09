@@ -117,31 +117,20 @@
             window.location.href = "/userMain";//todo
             return;
         }
-
-<<<<<<< HEAD
-function GoToMainBoard(type){
-    if(type === 1){ //user view
-        window.location.href = "/userMain";
-        return;
     }
-    if(type === 2){ // company view
-        window.location.href = "/userMain";//todo
-=======
+
+    function GoToMainBoard(type){
+        if(type === 1){ //user view
+            window.location.href = "/userMain";
+            return;
+        }
+        if(type === 2){ // company view
+            window.location.href = "/companyMain";//todo
+        }
+
         //admin view
         window.location.href = "/adminMain";//todo
     }
-<<<<<<< HEAD
-=======
-    if(type == 2){ // company view
-        window.location.href = "/companyMain";//todo
->>>>>>> dev_admin
-        return;
-    }
-
-    //admin view
-    window.location.href = "/userMain";//todo
-}
->>>>>>> dev_frontEndNew
 
     function changeBackground(userMode) {
         $('body').fadeTo('slow', 0.3, function () {
