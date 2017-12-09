@@ -1,0 +1,59 @@
+<!doctype HTML>
+<html>
+
+<head>
+    <%= csrf_meta_tags %>
+
+        <%= stylesheet_link_tag    'application', 'company', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+            <script src="https://use.fontawesome.com/6ca3ee8528.js"></script>
+
+</head>
+
+<body>
+    <div id="app" class="container-fluid">
+        <div class="container-fluid" id="wrapper-users">
+            <h3>{{ company.company_name }} Dashboard</h3>
+            <h4 id="isReady"style="display:none">Ready to go!</h4>
+            <h4 id="isLoading">Loading</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">User</th>
+                        <th scope="col">Hours each day</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="user in users">
+                        <td>
+                            {{ user.username }}
+                        </td>
+                        <td>
+                            <ul>
+                            <li v-for="activity in activities">
+                                <span> 
+                                    {{ parseInt(activity.end_time.split('T')[1].split(':')[0]) - parseInt(activity.start_time.split('T')[1].split(':')[0]) }}
+                                    hours on {{ parseInt(activity.start_time.split('T')[0].split('-')[2]) }} / {{ parseInt(activity.start_time.split('T')[0].split('-')[1]) }} / {{ activity.start_time.split('T')[0].split('-')[0] }}
+                                </span>
+                            </li>
+                            </ul>
+                        </td>
+
+                        <td v-for="activity in activities" style="display: none;">
+                            {{ setSum(parseInt(activity.end_time.split('T')[1].split(':')[0]) - parseInt(activity.start_time.split('T')[1].split(':')[0])) }}
+                        </td>
+                        <td>
+                           {{ getSum() }} hours
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+                
+        </div>
+    </div>
+    <%= javascript_include_tag 'application', 'companyMain','data-turbolinks-track': 'reload' %>
+</body>
+
+</html>

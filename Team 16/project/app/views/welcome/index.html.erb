@@ -4,10 +4,9 @@
 <head>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', 'index', media: 'all', 'data-turbolinks-track': 'reload' %>
     
     <script src="https://use.fontawesome.com/6ca3ee8528.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
 
 </head>
 
@@ -21,7 +20,7 @@
     <div id="app">
         <div class="row">
             <div class="col col-3">
-                <h3>Logged in as {{ username }}</h3>
+                <h3>Logged in as {{ user.username }}</h3>
                 <h4 v-show="loaded">Ready to go!</h4>
                 <h4 v-show="!loaded">Loading</h4>
             </div>
@@ -63,7 +62,7 @@
                 <div class="col col-3">
                     <div class="event-info-wrapper">
                         <div class="event-info">
-                            <h4>Add Event as {{ username }}</h4>
+                            <h4>Add Event as {{ user.username }}</h4>
                             <form action="javascript: app.createActivity()">
                                 <div class="form-group">
                                   <label for="desc">Stuff done</label>
@@ -98,7 +97,7 @@
         </div>
     </div>
 
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'index', 'data-turbolinks-track': 'reload' %>
 </body>
 
 </html>

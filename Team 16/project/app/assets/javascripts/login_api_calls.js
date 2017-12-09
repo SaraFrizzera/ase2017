@@ -11,8 +11,14 @@ function userLogIn(username, password){
     })
     .then(function (response) {
         localStorage.setItem('user', JSON.stringify(response.data));
-        toastr.success('Bentornato '+username)
+        toastr.success('Bentornato '+username);
         setTimeout(function(){
+            debugger;
+            if(response.data.user_type === 2){
+                GoToMainBoard(3);
+                return;
+            }
+            
             GoToMainBoard(1);
         },500);
     })
@@ -33,10 +39,10 @@ function userSignIn(username, password){
     })
     .then(function (response) {
         localStorage.setItem('user', JSON.stringify(response.data));
-        GoToMainBoard(1);    
+        GoToMainBoard(1);
     })
     .catch(function (error) {
-        toastr.warning('Errore durante la registrazione, username già in uso o valori non validi')
+        toastr.warning('Errore durante la registrazione, username già in uso o valori non validi');
     });
 }
 
@@ -52,7 +58,7 @@ function companyLogIn(companyName, vatNumber){
     })
     .then(function (response) {
         localStorage.setItem('company', JSON.stringify(response.data));
-        toastr.success('login eseguito come '+companyName)
+        toastr.success('login eseguito come '+companyName);
         setTimeout(function(){
             GoToMainBoard(2);
         },500);
@@ -77,6 +83,6 @@ function companySignIn(companyName, vatNumber){
         GoToMainBoard(2);    
     })
     .catch(function (error) {
-        toastr.warning('Errore Durante la registrazione, nome azienda già in uso o valori non validi')
+        toastr.warning('Errore Durante la registrazione, nome azienda già in uso o valori non validi');
     });
 }

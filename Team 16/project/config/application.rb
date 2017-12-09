@@ -14,5 +14,14 @@ module ProgettoIng2
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    config.after_initialize do
+      admin = User.find_by(username: 'a', password: 'a', user_type: 2) # todo change to admin
+
+      unless admin
+        admin = User.new username: 'a', password: 'a', user_type: 2 # admin creation
+        admin.save
+      end
+    end
   end
 end
