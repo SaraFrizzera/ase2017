@@ -6,3 +6,13 @@
     width: 500px;
     margin: auto;
 }
+
+.logout-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.logout-lable{
+    color: white
+}
