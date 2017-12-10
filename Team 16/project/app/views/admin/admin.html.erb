@@ -25,12 +25,12 @@
             <div class="col-md-10 col-md-offset-1">
                 <ul class="list-group">
                     <li v-for="user in users" v-on:click="userClicked(user)" class="list-group-item">
-                        <span class="glyphicon glyphicon-user"></span> USer : {{user.username}} <br>
+                        <span class="glyphicon glyphicon-user"></span> User : {{user.username}} <br>
                         <div class="glyphicon glyphicon-remove top right actionIcon" v-b-tooltip.hover title="Delete user" v-on:click.stop="showDeleteUserModal(user)"></div>
                         <div v-if="user.expanded">
                             <div v-if="user.isLoading">
                                 <div class="preloader-1">
-                                    <div>Loading</div>
+                                    <div class="loaderLabel">Loading</div>
                                     <span class="line line-1"></span>
                                     <span class="line line-2"></span>
                                     <span class="line line-3"></span>

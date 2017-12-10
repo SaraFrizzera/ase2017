@@ -3,15 +3,15 @@
   margin: auto;
   width: 66px;
   height: 12px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 }
 
 .preloader-2 {
   margin: auto;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 }
 
-div {
+.loaderLabel {
   color: black;
   margin: 5px 0;
   text-transform: uppercase;
