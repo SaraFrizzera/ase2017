@@ -17,7 +17,7 @@
                 <div class="col-md-12">
                     <div class="wrap">
                         <p class="form-title-user">
-                            App Fatturazione</p>
+                            Easy Invoice</p>
                         <div class="loginBox">
                             <input v-model="firstValue" type="text" :placeholder="firstValueText" class="BasicInputUser" />
                             <br>
@@ -52,8 +52,8 @@
             firstValue: '',
             secondValue: '',
             secondaryBtntext: 'sign in',
-            primaryBtntext: 'log in',
-            changeModeBtnText: 'Company area',
+            primaryBtntext: 'login',
+            changeModeBtnText: 'Company Area',
             firstValueText: 'username',
             secondValueText: 'password',
             loginMode: true,
@@ -93,12 +93,12 @@
             toggleLoginType: function (event) {
                 this.userMode = !this.userMode;
                 if (this.userMode) {
-                    this.changeModeBtnText = 'Company area';
+                    this.changeModeBtnText = 'Company Area';
                     this.firstValueText = 'username';
                     this.secondValueText = 'password';
                 }
                 else {
-                    this.changeModeBtnText = 'User area';
+                    this.changeModeBtnText = 'User Area';
                     this.firstValueText = 'company name';
                     this.secondValueText = 'vat number';
                 }
@@ -134,7 +134,7 @@
                 return;
             }
 
-            $(this).css('background-image', "url('http://orig03.deviantart.net/618a/f/2009/035/3/8/apple_aqua_wallpaper_by_vista_os_x_user.jpg')");
+            $(this).css('background-image', "url('https://wallpapersite.com/images/pages/pic_h/8738.jpg')");
             $('.form-title-company').addClass("form-title-user");
             $('.form-title-company').removeClass("form-title-company");
 
