@@ -20,7 +20,6 @@
                     <tr>
                         <th scope="col">User</th>
                         <th scope="col">Hours each day</th>
-                        <th scope="col">Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +29,7 @@
                         </td>
                         <td>
                             <ul>
-                            <li v-for="activity in activities">
+                            <li v-if="activity.user_id == user.id" v-for="activity in activities">
                                 <span> 
                                     {{ parseInt(activity.end_time.split('T')[1].split(':')[0]) - parseInt(activity.start_time.split('T')[1].split(':')[0]) }}
                                     hours on {{ parseInt(activity.start_time.split('T')[0].split('-')[2]) }} / {{ parseInt(activity.start_time.split('T')[0].split('-')[1]) }} / {{ activity.start_time.split('T')[0].split('-')[0] }}
@@ -42,13 +41,10 @@
                         <td v-for="activity in activities" style="display: none;">
                             {{ setSum(parseInt(activity.end_time.split('T')[1].split(':')[0]) - parseInt(activity.start_time.split('T')[1].split(':')[0])) }}
                         </td>
-                        <td>
-                           {{ getSum() }} hours
-                        </td>
                     </tr>
-                    
                 </tbody>
             </table>
+            <p style="float: right;">Total hours: {{ getSum() }}</p>
         </div>
     </div>
 

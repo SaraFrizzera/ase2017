@@ -70,7 +70,7 @@ var app = new Vue({
             this.sum = 0;
             $('#isLoading').css('display', 'none');
             $('#isReady').css('display', 'block');
-            return s;
+            return s / this.users.length;
         }
     }
 });
@@ -99,7 +99,7 @@ function initializeCompanyChart(){
         }
     })
     .then(function (response) {
-        dataSource = response.data
+        dataSource = response.data;
         console.log(response.data);
         initializeChart(dataSource, "user", "amount");
     })
