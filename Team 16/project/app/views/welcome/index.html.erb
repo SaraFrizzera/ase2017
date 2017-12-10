@@ -1,0 +1,102 @@
+<!doctype HTML>
+<html>
+
+<head>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', 'index', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <script src="https://use.fontawesome.com/6ca3ee8528.js"></script>
+</head>
+
+<body>
+    <!-- VUE.JS TEST
+    <div id="app">
+        <p>{{ message }}</p>
+        <p>{{ reverseMessage }}</p>
+        <input type="text" v-model="message">
+    </div> -->
+    <div id="app">
+        <div class="row">
+            <div class="col col-3">
+                <h3>Logged in as {{ user.username }}</h3>
+                <h4 v-show="loaded">Ready to go!</h4>
+                <h4 v-show="!loaded">Loading</h4>
+            </div>
+            <div class="col col-9">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="first-column"></th>
+                            <%  i = 0
+                                (Time.now.day..Time.now.day + 7).each do |day|%>
+                                <th style="color: <%= "grey" if Time.now.wday + i == 7 || Time.now.wday + i == 6%>">
+                                    <%= "0#{day}" if day < 10%><%=day if day >= 10%>/<%="0#{@Time.now.month}" if Time.now.month < 10%><%=Time.now.month if Time.now.month >= 10%>
+                                    <% i = i + 1 %>
+                                </th>
+                            <% end %>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <% (1..25).each do |hour|%>
+                            <tr class="<%= "non-visible" if hour==25 %>">
+                                <td class="first-column-wrapper">
+                                    <div class="first-column">
+                                        <%= hour if hour<25 %>
+                                    </div>
+                                </td>
+                                <% (Time.now.day..Time.now.day + 7).each do |day|%>
+                                    <td>
+                                        <div class="event-wrapper" id="<%= hour-1  %>-<%= day  %>_<%= Time.now.month%>_<%= Time.now.year%>"></div>
+                                    </td>
+                                <% end %>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="overlay">
+            <div class="row">
+                <div class="col col-3">
+                    <div class="event-info-wrapper">
+                        <div class="event-info">
+                            <h4>Add Event as {{ user.username }}</h4>
+                            <form action="javascript: app.createActivity()">
+                                <div class="form-group">
+                                  <label for="desc">Stuff done</label>
+                                  <input type="text" class="form-control" id="desc" aria-describedby="desc" placeholder="Stuff done" v-model="lastEventDesc" required>
+                                  <small id="descHelp" class="form-text text-muted">Hey now, you're a rock star, get the show on, get paid!</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="companies-names">Select the company</label>
+                                    <select class="form-control" id="companies-names" v-model="companyVat" required>
+                                        <option v-for="company in companies" v-bind:value="company.vat_number">
+                                            {{ company.company_name }}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                  <label for="start-time-event-creation">Start time</label>
+                                  <input type="text" class="form-control" id="start-time-event-creation" aria-describedby="start-time-event-creation" v-model="lastContainerClickedStart" disabled>
+                                </div>
+                                
+                                <div class="form-group">
+                                  <label for="end-time-event-creation">End time</label>
+                                  <input type="text" class="form-control" id="end-time-event-creation" aria-describedby="end-time-event-creation" v-model="lastContainerClickedEnd" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="new-event-submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%= javascript_include_tag 'application', 'index', 'data-turbolinks-track': 'reload' %>
+</body>
+
+</html>
