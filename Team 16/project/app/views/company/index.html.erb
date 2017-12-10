@@ -12,60 +12,60 @@
 <body>
     <div id="app" class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="#">Admin</a>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+            <a class="navbar-brand" href="#">Admin</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
-                        <li class="nav-item dropdown">
-                        </ul>
-                        <form class="form-inline my-2 my-lg-0">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
 
-                        <button class="btn btn-primary my-2 my-sm-0 logout-btn btn-lg" v-on:click="logout"><a class = "logout-lable" href="/">Logout</a></button>
-                        </form>
-                    </div>
-                </nav>
-            <div id="main-content">
-        <div class="container-fluid" id="wrapper-users">
-            <h3>{{ company.company_name }} Dashboard</h3>
-            <h4 id="isReady"style="display:none">Ready to go!</h4>
-            <h4 id="isLoading">Loading</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">User</th>
-                        <th scope="col">Hours each day</th>
-                        <th scope="col">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="user in users">
-                        <td>
-                            {{ user.username }}
-                        </td>
-                        <td>
-                            <ul>
-                            <li v-for="activity in activities">
-                                <span> 
-                                    {{ parseInt(activity.end_time.split('T')[1].split(':')[0]) - parseInt(activity.start_time.split('T')[1].split(':')[0]) }}
-                                    hours on {{ parseInt(activity.start_time.split('T')[0].split('-')[2]) }} / {{ parseInt(activity.start_time.split('T')[0].split('-')[1]) }} / {{ activity.start_time.split('T')[0].split('-')[0] }}
-                                </span>
-                            </li>
-                            </ul>
-                        </td>
+                <button class="btn btn-primary my-2 my-sm-0 logout-btn btn-lg"><a class = "logout-lable" href="/">Logout</a></button>
+                </form>
+            </div>
+        </nav>
+        <div id="main-content">
+            <div class="container-fluid" id="wrapper-users">
+                <h3>{{ company.company_name }} Dashboard</h3>
+                <h4 id="isReady"style="display:none">Ready to go!</h4>
+                <h4 id="isLoading">Loading</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">User</th>
+                            <th scope="col">Hours each day</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="user in users">
+                            <td>
+                                {{ user.username }}
+                            </td>
+                            <td>
+                                <ul>
+                                <li v-for="activity in activities">
+                                    <span> 
+                                        {{ parseInt(activity.end_time.split('T')[1].split(':')[0]) - parseInt(activity.start_time.split('T')[1].split(':')[0]) }}
+                                        hours on {{ parseInt(activity.start_time.split('T')[0].split('-')[2]) }} / {{ parseInt(activity.start_time.split('T')[0].split('-')[1]) }} / {{ activity.start_time.split('T')[0].split('-')[0] }}
+                                    </span>
+                                </li>
+                                </ul>
+                            </td>
 
-                        <td v-for="activity in activities" style="display: none;">
-                            {{ setSum(parseInt(activity.end_time.split('T')[1].split(':')[0]) - parseInt(activity.start_time.split('T')[1].split(':')[0])) }}
-                        </td>
-                        <td>
-                           {{ getSum() }} hours
-                        </td>
-                    </tr>
-                    
-                </tbody>
-            </table>
+                            <td v-for="activity in activities" style="display: none;">
+                                {{ setSum(parseInt(activity.end_time.split('T')[1].split(':')[0]) - parseInt(activity.start_time.split('T')[1].split(':')[0])) }}
+                            </td>
+                            <td>
+                            {{ getSum() }} hours
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -73,7 +73,7 @@
     <div id="pie"></div>
 
 
-    <%= javascript_include_tag 'application', 'companyMain', 'pie_chart', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'pie_chart', 'companyMain', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.spa.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.common.css" />
     <link rel="dx-theme" data-theme="generic.light" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.light.css" />
