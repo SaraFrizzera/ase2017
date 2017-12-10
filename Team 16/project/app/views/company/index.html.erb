@@ -11,6 +11,23 @@
 
 <body>
     <div id="app" class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="#">Admin</a>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+
+                        <button class="btn btn-primary my-2 my-sm-0 logout-btn btn-lg" v-on:click="logout"><a class = "logout-lable" href="/">Logout</a></button>
+                        </form>
+                    </div>
+                </nav>
+            <div id="main-content">
         <div class="container-fluid" id="wrapper-users">
             <h3>{{ company.company_name }} Dashboard</h3>
             <h4 id="isReady"style="display:none">Ready to go!</h4>

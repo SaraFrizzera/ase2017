@@ -14,74 +14,98 @@
 
 </head>
 
+
+
+
+
 <body>
     <div id="app">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <ul class="list-group">
-                    <li v-for="user in users" v-on:click="userClicked(user)" class="list-group-item">
-                        <span class="glyphicon glyphicon-user"></span> User : {{user.username}} <br>
-                        <div class="glyphicon glyphicon-remove top right actionIcon" v-b-tooltip.hover title="Delete user" v-on:click.stop="showDeleteUserModal(user)"></div>
-                        <div v-if="user.expanded">
-                            <div v-if="user.isLoading">
-                                <div class="preloader-1">
-                                    <div class="loaderLabel">Loading</div>
-                                    <span class="line line-1"></span>
-                                    <span class="line line-2"></span>
-                                    <span class="line line-3"></span>
-                                    <span class="line line-4"></span>
-                                    <span class="line line-5"></span>
-                                    <span class="line line-6"></span>
-                                    <span class="line line-7"></span>
-                                    <span class="line line-8"></span>
-                                    <span class="line line-9"></span>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Admin</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+
+                    <button class="btn btn-primary my-2 my-sm-0 logout-btn btn-lg" v-on:click="logout"><a class = "logout-lable" href="/">Logout</a></button>
+                    </form>
+                </div>
+            </nav>
+
+
+        <div id="main-content">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <ul class="list-group">
+                        <li v-for="user in users" v-on:click="userClicked(user)" class="list-group-item">
+                            <span class="glyphicon glyphicon-user"></span> User : {{user.username}} <br>
+                            <div class="glyphicon glyphicon-remove top right actionIcon" v-b-tooltip.hover title="Delete user" v-on:click.stop="showDeleteUserModal(user)"></div>
+                            <div v-if="user.expanded">
+                                <div v-if="user.isLoading">
+                                    <div class="preloader-1">
+                                        <div class="loaderLabel">Loading</div>
+                                        <span class="line line-1"></span>
+                                        <span class="line line-2"></span>
+                                        <span class="line line-3"></span>
+                                        <span class="line line-4"></span>
+                                        <span class="line line-5"></span>
+                                        <span class="line line-6"></span>
+                                        <span class="line line-7"></span>
+                                        <span class="line line-8"></span>
+                                        <span class="line line-9"></span>
+                                    </div>
+                                </div>
+                                <div v-if="!user.isLoading">
+                                    <table class="fullWidth">
+                                        <thead width="100%">
+                                            <tr>
+                                                <th scope="col">Company name</th>
+                                                <th scope="col">Start date</th>
+                                                <th scope="col">End date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="activity in user.activities" class="smallPadding">
+                                                <td>{{activity.company.companyName}}</td>
+                                                <td>{{activity.start}}</td>
+                                                <td>{{activity.end}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="glyphicon glyphicon-chevron-up bottom right actionIcon" v-on:click.stop="userHide(user)"></div>
                                 </div>
                             </div>
-                            <div v-if="!user.isLoading">
-                                <table class="fullWidth">
-                                    <thead width="100%">
-                                        <tr>
-                                            <th scope="col">Company name</th>
-                                            <th scope="col">Start date</th>
-                                            <th scope="col">End date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="activity in user.activities" class="smallPadding">
-                                            <td>{{activity.company.companyName}}</td>
-                                            <td>{{activity.start}}</td>
-                                            <td>{{activity.end}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="glyphicon glyphicon-chevron-up bottom right actionIcon" v-on:click.stop="userHide(user)"></div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <!-- delete user modal -->
-        <div id="deleteUserModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete user {{selectedUser.username}}</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Sei sicuro di voler cancellare l'utente {{selectedUser.username}}?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" v-on:click="deleteUser">Confirm</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+            <!-- delete user modal -->
+            <div id="deleteUserModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete user {{selectedUser.username}}</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Sei sicuro di voler cancellare l'utente {{selectedUser.username}}?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" v-on:click="deleteUser">Confirm</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -152,6 +176,11 @@
                 alert(error);
             });
         },
+        logout: function() {
+            debugger;
+            localStorage.clear();
+            goToLogin();
+        },
     }
 });
 
@@ -216,6 +245,9 @@ function CompanyViewModel(id) {
     });
 }
 
-
+function goToLogin()
+{
+    window.location.href = "https://www.w3schools.com";//todo
+}
 
 </script>

@@ -15,7 +15,7 @@
     padding: 20px;
 }
 
-#app{
+#main-content{
     padding-top: 20vh;
 }
 
@@ -48,3 +48,14 @@
 #pie * {
     margin: 0 auto;
 }
+
+.logout-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.logout-lable{
+    color: white
+}
+
