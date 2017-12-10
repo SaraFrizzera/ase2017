@@ -4,14 +4,91 @@
     <title></title>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+
 
     <%= csrf_meta_tags %>
-        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'toastr.js', :cache => 'myfiles' %>
+    <%= stylesheet_link_tag 'application', 'admin', 'loader', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.spa.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.common.css" />
+    <link rel="dx-theme" data-theme="generic.light" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.light.css" />
+    <script src="https://cdn3.devexpress.com/jslib/17.2.3/js/dx.all.js"></script>
 </head>
 
 <body>
     <div id="app">
-        sds
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <ul class="list-group">
+                    <li v-for="user in users" v-on:click="userClicked(user)" class="list-group-item">
+                        <span class="glyphicon glyphicon-user"></span> USer : {{user.username}} <br>
+                        <div class="glyphicon glyphicon-remove top right actionIcon" v-b-tooltip.hover title="Delete user" v-on:click.stop="showDeleteUserModal(user)"></div>
+                        <div v-if="user.expanded">
+                            <div v-if="user.isLoading">
+                                <div class="preloader-1">
+                                    <div>Loading</div>
+                                    <span class="line line-1"></span>
+                                    <span class="line line-2"></span>
+                                    <span class="line line-3"></span>
+                                    <span class="line line-4"></span>
+                                    <span class="line line-5"></span>
+                                    <span class="line line-6"></span>
+                                    <span class="line line-7"></span>
+                                    <span class="line line-8"></span>
+                                    <span class="line line-9"></span>
+                                </div>
+                            </div>
+                            <div v-if="!user.isLoading">
+                                <table class="fullWidth">
+                                    <thead width="100%">
+                                        <tr>
+                                            <th scope="col">Company name</th>
+                                            <th scope="col">Start date</th>
+                                            <th scope="col">End date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="activity in user.activities" class="smallPadding">
+                                            <td>{{activity.company.companyName}}</td>
+                                            <td>{{activity.start}}</td>
+                                            <td>{{activity.end}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="glyphicon glyphicon-chevron-up bottom right actionIcon" v-on:click.stop="userHide(user)"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+         <div id="pie"></div>
+
+        <!-- delete user modal -->
+        <div id="deleteUserModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete user {{selectedUser.username}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Sei sicuro di voler cancellare l'utente {{selectedUser.username}}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" v-on:click="deleteUser">Confirm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -22,16 +99,205 @@
     crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 </body>
 
 <script>
     var app = new Vue({
-      el: '#app',
-      data: {
+    el: '#app',
+    data: {
+        users: [],
+        selectedUser: []
     },
     methods: {
+        getUsers: function() {
+            axios({
+                method: 'get',
+                url: '/users',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function (response) {
+                response.data = response.data.filter( function(user) {
+                    return !(user.user_type === 2 );
+                });
+
+                response.data.forEach(function(rawUser) {
+                    app.users.push(new UserViewModel(rawUser));
+                });
+            })
+            .catch(function (error) {
+                alert(error);
+            });
+        },
+        userClicked: function(user) {
+            app.selectedUser = user;
+            user.loadActivities();
+        },
+        userHide: function(user) {
+            user.expanded = false;
+        },
+        showDeleteUserModal: function(user) {
+            app.selectedUser = user;
+            $('#deleteUserModal').modal('toggle');
+        },
+        deleteUser: function() {
+            axios({
+                method: 'delete',
+                url: '/user',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'username': app.selectedUser.username,
+                }
+            })
+            .then(function (response) {
+                toastr.success('Utente eliminato');
+            })
+            .catch(function (error) {
+                alert(error);
+            });
+        },
     }
 });
 
+$(document).ready(function() {
+    app.getUsers();
+});
 
+function UserViewModel(data) {
+	var self = this;
+    self.username = data.username;
+    self.expanded = false;
+    self.isLoading = true;
+    self.activities = [];
+    self.loadActivities = function () {
+        self.expanded = true;
+        self.isLoading = true;
+        axios({
+            method: 'get',
+            url: '/activities/by/user',
+            headers: {
+                'Content-Type': 'application/json',
+                'username': self.username,
+            }
+        })
+        .then(function (response) {
+            self.activities = [];
+            [response.data].forEach(function(rawActivity) {
+                self.activities.push(new ActivityViewModel(rawActivity));
+            });
+            self.isLoading = false;
+        })
+        .catch(function (error) {
+            alert(error);
+        });
+    }
+}
+
+function ActivityViewModel(data) {
+	var self = this;
+    self.start = data.start_time;
+    self.end = data.end_time;
+    self.company = new CompanyViewModel(data.company_id);
+}
+
+function CompanyViewModel(id) {
+	var self = this;
+    self.companyName = 'loading';
+
+    axios({
+        method: 'get',
+        url: '/company/by/id',
+        headers: {
+            'Content-Type': 'application/json',
+            'id': id,
+        }
+    })
+    .then(function (response) {
+        self.companyName = response.data.company_name;
+    })
+    .catch(function (error) {
+        alert(error);
+    });
+}
+
+
+
+
+var dataSource = [{
+    country: "Russia",
+    area: 12
+}, {
+    country: "Canada",
+    area: 7
+}, {
+    country: "USA",
+    area: 7
+}, {
+    country: "China",
+    area: 7
+}, {
+    country: "Brazil",
+    area: 6
+}, {
+    country: "Australia",
+    area: 5
+}, {
+    country: "India",
+    area: 2
+}, {
+    country: "Others",
+    area: 55
+}];
+
+
+
+
+
+$(function(){
+    $("#pie").dxPieChart({
+        size: {
+            width: 500
+        },
+        palette: "bright",
+        dataSource: dataSource,
+        series: [
+            {
+                argumentField: "country",
+                valueField: "area",
+                label: {
+                    visible: true,
+                    connector: {
+                        visible: true,
+                        width: 1
+                    }
+                }
+            }
+        ],
+        title: "Area of Countries",
+        "export": {
+            enabled: true
+        },
+        onPointClick: function (e) {
+            var point = e.target;
+    
+            toggleVisibility(point);
+        },
+        onLegendClick: function (e) {
+            var arg = e.target;
+    
+            toggleVisibility(this.getAllSeries()[0].getPointsByArg(arg)[0]);
+        }
+    });
+    
+    function toggleVisibility(item) {
+        if(item.isVisible()) {
+            item.hide();
+        } else { 
+            item.show();
+        }
+    }
+});
 </script>

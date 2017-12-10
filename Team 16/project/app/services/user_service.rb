@@ -20,7 +20,13 @@ class UserService < BaseService
   end
 
   def find_all_users
-    User.all
+    users = []
+
+    User.all.each do |user|
+      users.push user.slice('username', 'user_type')
+    end
+
+    users
   end
 
   def delete_user(headers)

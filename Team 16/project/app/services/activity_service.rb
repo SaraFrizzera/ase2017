@@ -36,6 +36,15 @@ class ActivityService < BaseService
     Activity.all
   end
 
+  def find_activity_by_user(headers)
+    username = headers['username']
+    validate_params([username])
+
+    user = User.find_by(username: username)
+    raise ArgumentError, 'User does not exist in database' unless user
+    Activity.find_by(user: user)
+  end
+
   def delete(headers)
     return unless find_activity(headers)
     find_activity(headers).destroy

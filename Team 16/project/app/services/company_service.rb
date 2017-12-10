@@ -17,6 +17,13 @@ class CompanyService < BaseService
     Company.find_by(company_name: company_name)
   end
 
+  def find_company_by_id(headers)
+    company_id = headers['id']
+    validate_params([company_id])
+
+    Company.find_by(id: company_id)
+  end
+
   def find_companies
     Company.all
   end

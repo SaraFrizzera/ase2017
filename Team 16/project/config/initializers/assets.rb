@@ -20,3 +20,7 @@ Rails.application.config.assets.precompile += %w[index.js]
 Rails.application.config.assets.precompile += %w[companyMain.js]
 Rails.application.config.assets.precompile += %w[company.css]
 Rails.application.config.assets.precompile += %w[index.css]
+
+# admin view
+Rails.application.config.assets.precompile += %w[admin.css]
+Rails.application.config.assets.precompile += %w[loader.css]

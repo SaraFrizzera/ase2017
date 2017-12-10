@@ -11,6 +11,10 @@ class ActivityController < BaseController
     service_handler ActivityService.new.method(:find_activity), request.headers
   end
 
+  def find_by_user
+    service_handler ActivityService.new.method(:find_activity_by_user), request.headers
+  end
+
   def delete
     service_handler ActivityService.new.method(:delete_activity), request.headers
   end
