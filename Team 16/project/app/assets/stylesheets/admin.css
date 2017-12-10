@@ -1,0 +1,61 @@
+.list-group-item{
+
+}
+
+.list-group-item:hover{
+    background-color: #e6e6e6;
+    cursor: pointer; 
+}
+
+.fullWidth{
+    width: 100%;
+}
+
+.smallPadding{
+    padding: 20px;
+}
+
+#main-content{
+    padding-top: 20vh;
+}
+
+.top{
+    position: fixed;
+    top: 0;
+}
+
+.bottom{
+    position: fixed;
+    bottom: 0;
+}
+
+.right{
+    float: right;
+}
+
+.left{
+    float: left;
+}
+
+.actionIcon:hover{
+    color: red;
+}
+
+#pie {
+    height: 440px;
+}
+
+#pie * {
+    margin: 0 auto;
+}
+
+.logout-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.logout-lable{
+    color: white
+}
+

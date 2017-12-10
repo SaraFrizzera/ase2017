@@ -1,3 +1,2 @@
-class WelcomeController < ApplicationController
-  def index; end
+class WelcomeController < BaseController
 end
