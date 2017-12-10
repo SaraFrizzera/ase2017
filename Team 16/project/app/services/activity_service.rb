@@ -45,6 +45,13 @@ class ActivityService < BaseService
     Activity.find_by(user: user)
   end
 
+  def find_activity_by_company(headers)
+    company = CompanyService.new.find_company headers
+    raise ArgumentError, 'company does not exist in database' unless company
+
+    Activity.where(company: company)
+  end
+
   def delete(headers)
     return unless find_activity(headers)
     find_activity(headers).destroy

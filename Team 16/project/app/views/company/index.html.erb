@@ -3,10 +3,10 @@
 
 <head>
     <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', 'company', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-        <%= stylesheet_link_tag    'application', 'company', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-            <script src="https://use.fontawesome.com/6ca3ee8528.js"></script>
+    <script src="https://use.fontawesome.com/6ca3ee8528.js"></script>
 </head>
 
 <body>
@@ -49,10 +49,18 @@
                     
                 </tbody>
             </table>
-                
         </div>
     </div>
-    <%= javascript_include_tag 'application', 'companyMain','data-turbolinks-track': 'reload' %>
+
+    
+    <div id="pie"></div>
+
+
+    <%= javascript_include_tag 'application', 'companyMain', 'pie_chart', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.spa.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.common.css" />
+    <link rel="dx-theme" data-theme="generic.light" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.light.css" />
+    <script src="https://cdn3.devexpress.com/jslib/17.2.3/js/dx.all.js"></script>
 </body>
 
 </html>

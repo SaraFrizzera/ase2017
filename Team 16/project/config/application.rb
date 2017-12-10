@@ -64,6 +64,12 @@ module ProgettoIng2
           activity3 = Activity.new start_time: '8 Dec 2017 8:00:00', end_time: '8 Dec 2017 13:00:00', company: company2, user: user2
           activity3.save
         end
+
+        activity4 = Activity.find_by(start_time: Time.zone.parse('9 Dec 2017 8:00:00'), end_time: Time.zone.parse('9 Dec 2017 13:00:00'), company: company1, user: user2) # TODO: change
+        unless activity4
+          activity4 = Activity.new start_time: '9 Dec 2017 8:00:00', end_time: '9 Dec 2017 13:00:00', company: company1, user: user2
+          activity4.save
+        end
       rescue => exception
         puts 'errore in startp. db non rigenerato, errore: ' + exception.to_s
       end

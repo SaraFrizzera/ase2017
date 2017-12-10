@@ -34,4 +34,22 @@ class CompanyService < BaseService
 
     Company.find_by(company_name: company_name).destroy
   end
+
+  def company_user_work_amount(headers)
+    activities = Array(ActivityService.new.find_activity_by_company(headers))
+    work_amounts = []
+
+    activities.each do |activity|
+      amount = (((activity.end_time - activity.start_time) / 1.hour).round).to_i
+
+      work_amaount = work_amounts.select { |w_a| w_a.user == activity.user.username }
+      if !work_amaount.empty?
+        work_amaount.first.amount = work_amaount.first.amount + amount
+      else
+        work_amounts.push (WorkAmount.new user: activity.user.username, amount: amount)
+      end
+    end
+
+    work_amounts
+  end
 end

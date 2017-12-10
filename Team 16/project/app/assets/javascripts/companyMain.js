@@ -30,6 +30,7 @@ var app = new Vue({
                             app.activities.push(element);
                         }
                     });
+                app.getUsers();
                 })
                 .catch(function (error) {
                     alert(error);
@@ -74,40 +75,69 @@ var app = new Vue({
     }
 });
 
+
+
+
 $(document).ready(function() {
     app.getActivities();
-    app.getUsers();
     console.log(app.activities);
     console.log(app.users);
-    // console.log(app.sum[0]);
+    initializeCompanyChart();
 });
 
 
 
+function initializeCompanyChart(){
+    var dataSource = [];
+
+    axios({
+        method: 'get',
+        url: '/company/work/amount',
+        headers: {
+            'Content-Type': 'application/json',
+            'companyName': app.company.company_name
+        }
+    })
+    .then(function (response) {
+        dataSource = response.data
+        console.log(response.data);
+        initializeChart(dataSource, "user", "amount");
+    })
+    .catch(function (error) {
+        alert(error);
+    });
 
 
+/*
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    var dataSource = [{
+        user: "User1",
+        amount: 12
+    }, {
+        user: "User2",
+        amount: 7
+    }, {
+        user: "User3",
+        amount: 7
+    }, {
+        user: "User4",
+        amount: 7
+    }, {
+        user: "User5",
+        amount: 6
+    }, {
+        user: "User6",
+        amount: 5
+    }, {
+        user: "User7",
+        amount: 2
+    }, {
+        user: "Other",
+        amount: 55
+    }];
+*/
+    
+}
 
 
 

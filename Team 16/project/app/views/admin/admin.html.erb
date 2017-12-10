@@ -12,11 +12,6 @@
     <%= javascript_include_tag 'toastr.js', :cache => 'myfiles' %>
     <%= stylesheet_link_tag 'application', 'admin', 'loader', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-
-    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.spa.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.common.css" />
-    <link rel="dx-theme" data-theme="generic.light" href="https://cdn3.devexpress.com/jslib/17.2.3/css/dx.light.css" />
-    <script src="https://cdn3.devexpress.com/jslib/17.2.3/js/dx.all.js"></script>
 </head>
 
 <body>
@@ -66,8 +61,6 @@
                 </ul>
             </div>
         </div>
-
-         <div id="pie"></div>
 
         <!-- delete user modal -->
         <div id="deleteUserModal" class="modal fade" role="dialog">
@@ -225,79 +218,4 @@ function CompanyViewModel(id) {
 
 
 
-
-var dataSource = [{
-    country: "User1",
-    area: 12
-}, {
-    country: "User2",
-    area: 7
-}, {
-    country: "User3",
-    area: 7
-}, {
-    country: "User4",
-    area: 7
-}, {
-    country: "User5",
-    area: 6
-}, {
-    country: "User6",
-    area: 5
-}, {
-    country: "User7",
-    area: 2
-}, {
-    country: "Other",
-    area: 55
-}];
-
-
-
-
-
-$(function(){
-    $("#pie").dxPieChart({
-        size: {
-            width: 500
-        },
-        palette: "bright",
-        dataSource: dataSource,
-        series: [
-            {
-                argumentField: "country",
-                valueField: "area",
-                label: {
-                    visible: true,
-                    connector: {
-                        visible: true,
-                        width: 1
-                    }
-                }
-            }
-        ],
-        title: "Totale ore per utente",
-        "export": {
-            enabled: true
-        },
-        onPointClick: function (e) {
-            var point = e.target;
-    
-            toggleVisibility(point);
-        },
-        onLegendClick: function (e) {
-            var arg = e.target;
-    
-            toggleVisibility(this.getAllSeries()[0].getPointsByArg(arg)[0]);
-        }
-    });
-    
-    function toggleVisibility(item) {
-        if(item.isVisible()) {
-            item.hide();
-        } else { 
-            item.show();
-        }
-    }
-});
 </script>
