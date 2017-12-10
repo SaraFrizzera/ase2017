@@ -23,7 +23,7 @@ class UserService < BaseService
     users = []
 
     User.all.each do |user|
-      users.push user.slice('username', 'user_type')
+      users.push user.slice('username', 'user_type', 'id')
     end
 
     users
