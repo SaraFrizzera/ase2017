@@ -10,7 +10,7 @@ class ActivityService < BaseService
     company = Company.find_by(vat_number: company_vat_number)
     raise ArgumentError, 'User does not exist in database' unless user
     raise ArgumentError, 'Company does not exist in database' unless company
-    raise ArgumentError, 'Activity already existing' if Activity.find_by(start_time: start_time, end_time: end_time)
+    raise ArgumentError, 'Activity already existing' if Activity.find_by(start_time: Time.zone.parse(start_time), end_time: Time.zone.parse(end_time))
 
     activity = Activity.new start_time: start_time, end_time: end_time, company: company, user: user
     activity.save
