@@ -78,7 +78,6 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="glyphicon glyphicon-chevron-up bottom right actionIcon" v-on:click.stop="userHide(user)"></div>
                                 </div>
                             </div>
                         </li>
@@ -125,7 +124,9 @@
     el: '#app',
     data: {
         users: [],
-        selectedUser: []
+        companies: [],
+        selectedUser: [],
+        selectedCompany: []
     },
     methods: {
         getUsers: function() {
@@ -149,7 +150,30 @@
                 alert(error);
             });
         },
+        getCompanies: function() {
+            axios({
+                method: 'get',
+                url: '/companies',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function (response) {
+                response.data.forEach(function(rawCompany) {
+                    app.companies.push(new CompanyViewModel(rawCompany));
+                });
+            })
+            .catch(function (error) {
+                alert(error);
+            });
+        },
         userClicked: function(user) {
+            if(user.expanded)
+            {
+                user.expanded = !user.expanded;
+                return;
+            }
+
             app.selectedUser = user;
             user.loadActivities();
         },
@@ -186,6 +210,7 @@
 
 $(document).ready(function() {
     app.getUsers();
+    app.getCompanies();
 });
 
 function UserViewModel(data) {
@@ -207,7 +232,7 @@ function UserViewModel(data) {
         })
         .then(function (response) {
             self.activities = [];
-            [response.data].forEach(function(rawActivity) {
+            response.data.forEach(function(rawActivity) {
                 self.activities.push(new ActivityViewModel(rawActivity));
             });
             self.isLoading = false;
@@ -218,14 +243,20 @@ function UserViewModel(data) {
     }
 }
 
+function CompanyViewModel(data) {
+	var self = this;
+    self.companyName = data.company_name;
+    self.vatNumber = data.vat_number;
+}
+
 function ActivityViewModel(data) {
 	var self = this;
     self.start = data.start_time;
     self.end = data.end_time;
-    self.company = new CompanyViewModel(data.company_id);
+    self.company = new CompanyViewModelId(data.company_id);
 }
 
-function CompanyViewModel(id) {
+function CompanyViewModelId(id) {
 	var self = this;
     self.companyName = 'loading';
 
@@ -243,11 +274,6 @@ function CompanyViewModel(id) {
     .catch(function (error) {
         alert(error);
     });
-}
-
-function goToLogin()
-{
-    window.location.href = "https://www.w3schools.com";//todo
 }
 
 </script>
