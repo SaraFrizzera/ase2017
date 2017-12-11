@@ -15,3 +15,39 @@ L'intera applicazione si basa su 4 views, tutti gli eventi di creazione/popolame
 
 # ERD
 ![erd](./photo5866381940414852152.jpg)
+
+Lato backend il pattern predominante è quello del Service Object, nel quale si delega la logica della chiamata ad una classe che implementa direttamente il codice o implementa a sua volta altri servizi in combinazione con lo scopo finale di aumentare la centralizzazione del codice e la sua riutilizzabilità.
+
+Esempio di un metodo del servizio per le attività.
+```sh
+  def find_activity_by_company(headers)
+    company = CompanyService.new.find_company headers
+    raise ArgumentError, 'company does not exist in database' unless company
+
+    Activity.where(company: company)
+  end
+```
+
+Al controller spetta il compito di chiamare il servizio e gestire le eventuali eccezioni tramite un handler di servizi definito nella classe base.
+```sh
+  def find_by_company
+    service_handler ActivityService.new.method(:find_activity_by_company), request.headers
+  end
+```
+
+# Test
+
+I test sono stati implementati seguendo la guida dello stile Rails e seguono la forma:
+
+```sh
+  test "the truth" do
+    assert true
+  end
+```
+
+Eseguibili tramite il comando
+```sh
+  rake test
+```
+
+Sono stati implementate 15 funzioni di test per un totale di quasi una trentina di asserzioni.
