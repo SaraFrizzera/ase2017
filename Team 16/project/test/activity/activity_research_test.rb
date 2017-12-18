@@ -57,11 +57,11 @@ class ActivityResearchTest < ActionDispatch::IntegrationTest
     }
 
     # act
-    activity = ActivityService.new.find_activity_by_company search_activity_headers
+    activities = ActivityService.new.find_activity_by_company search_activity_headers
 
     # assert
-    assert_not_nil(activity)
-    assert_equal('RageDarioDevelopment', activity.company.company_name)
+    assert_not_nil(activities)
+    assert_equal('RageDarioDevelopment', activities[0].company.company_name)
   end
 
   test 'Should raise an exception when giving an unknown company' do
@@ -76,37 +76,6 @@ class ActivityResearchTest < ActionDispatch::IntegrationTest
     # act & assert
     assert_raises(ArgumentError) { ActivityService.new.find_activity_by_company wrong_activity_headers }
   end
-
-  test 'Should find all company activities when giving an existing company' do
-    reset_db
-
-    # arrange
-    seed_database
-    search_activity_headers = {
-      'companyName' => 'RageDarioDevelopment'
-    }
-
-    # act
-    activity = ActivityService.new.find_activity_by_company search_activity_headers
-
-    # assert
-    assert_not_nil(activity)
-    assert_equal('RageDarioDevelopment', activity.company.company_name)
-  end
-
-  test 'Should raise an exception when giving an unknown company' do
-    reset_db
-
-    # arrange
-    seed_database
-    wrong_activity_headers = {
-      'companyName' => 'DarioCo'
-    }
-
-    # act & assert
-    assert_raises(ArgumentError) { ActivityService.new.find_activity_by_company wrong_activity_headers }
-  end
-
 
   def reset_db
     Activity.delete_all
