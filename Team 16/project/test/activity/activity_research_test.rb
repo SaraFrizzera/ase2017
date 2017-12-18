@@ -107,7 +107,6 @@ class ActivityResearchTest < ActionDispatch::IntegrationTest
     assert_raises(ArgumentError) { ActivityService.new.find_activity_by_company wrong_activity_headers }
   end
 
-
   def reset_db
     Activity.delete_all
     Company.delete_all
