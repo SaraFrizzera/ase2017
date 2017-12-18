@@ -52,9 +52,16 @@ class ActivityResearchTest < ActionDispatch::IntegrationTest
 
     # arrange
     seed_database
+    creation_activity_headers = {
+      'username' => 'dario',
+      'vatNumber' => '666',
+      'startTime' => '22 Jan 2013 15:00:00',
+      'endTime' => '22 Jan 2013 16:00:00'
+    }
     search_activity_headers = {
       'companyName' => 'RageDarioDevelopment'
     }
+    ActivityService.new.create_activity creation_activity_headers
 
     # act
     activities = ActivityService.new.find_activity_by_company search_activity_headers
@@ -82,16 +89,25 @@ class ActivityResearchTest < ActionDispatch::IntegrationTest
 
     # arrange
     seed_database
+    creation_activity_headers = {
+      'username' => 'dario',
+      'vatNumber' => '666',
+      'startTime' => '22 Jan 2013 15:00:00',
+      'endTime' => '22 Jan 2013 16:00:00'
+    }
+
     search_activity_headers = {
       'companyName' => 'RageDarioDevelopment'
     }
+
+    ActivityService.new.create_activity creation_activity_headers
 
     # act
     activities = ActivityService.new.find_activity_by_company search_activity_headers
 
     # assert
     assert_not_nil(activities)
-    assert_equal('RageDarioDevelopment', activities.company.company_name)
+    assert_equal('RageDarioDevelopment', activities[0].company.company_name)
   end
 
   test 'Should raise an exception when giving an unknown user' do

@@ -1,14 +1,14 @@
 {
   "RSpec": {
     "coverage": {
-      "C:/Code/Progetto Ruby/Team 16/project/config/environment.rb": [
+      "C:/Code/Team 16/project/config/environment.rb": [
         null,
         1,
         null,
         null,
         1
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/config/environments/test.rb": [
+      "C:/Code/Team 16/project/config/environments/test.rb": [
         1,
         null,
         null,
@@ -52,7 +52,7 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/config/initializers/application_controller_renderer.rb": [
+      "C:/Code/Team 16/project/config/initializers/application_controller_renderer.rb": [
         null,
         null,
         null,
@@ -62,7 +62,7 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/config/initializers/assets.rb": [
+      "C:/Code/Team 16/project/config/initializers/assets.rb": [
         null,
         null,
         null,
@@ -92,7 +92,7 @@
         1,
         1
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/config/initializers/backtrace_silencers.rb": [
+      "C:/Code/Team 16/project/config/initializers/backtrace_silencers.rb": [
         null,
         null,
         null,
@@ -101,20 +101,20 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/config/initializers/cookies_serializer.rb": [
+      "C:/Code/Team 16/project/config/initializers/cookies_serializer.rb": [
         null,
         null,
         null,
         null,
         1
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/config/initializers/filter_parameter_logging.rb": [
+      "C:/Code/Team 16/project/config/initializers/filter_parameter_logging.rb": [
         null,
         null,
         null,
         1
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/config/initializers/inflections.rb": [
+      "C:/Code/Team 16/project/config/initializers/inflections.rb": [
         null,
         null,
         null,
@@ -132,13 +132,13 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/config/initializers/mime_types.rb": [
+      "C:/Code/Team 16/project/config/initializers/mime_types.rb": [
         null,
         null,
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/config/initializers/wrap_parameters.rb": [
+      "C:/Code/Team 16/project/config/initializers/wrap_parameters.rb": [
         null,
         null,
         null,
@@ -154,7 +154,7 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/app/models/user.rb": [
+      "C:/Code/Team 16/project/app/models/user.rb": [
         1,
         1,
         1,
@@ -163,12 +163,12 @@
         1,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/app/models/application_record.rb": [
+      "C:/Code/Team 16/project/app/models/application_record.rb": [
         1,
         1,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/app/models/company.rb": [
+      "C:/Code/Team 16/project/app/models/company.rb": [
         1,
         1,
         1,
@@ -176,7 +176,7 @@
         1,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/app/models/activity.rb": [
+      "C:/Code/Team 16/project/app/models/activity.rb": [
         1,
         1,
         1,
@@ -185,7 +185,7 @@
         1,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/config/routes.rb": [
+      "C:/Code/Team 16/project/config/routes.rb": [
         1,
         1,
         1,
@@ -217,16 +217,7 @@
         1,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/test/models/activity_test.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null
-      ],
-      "C:/Code/Progetto Ruby/Team 16/project/test/models/company_test.rb": [
+      "C:/Code/Team 16/project/test/models/activity_test.rb": [
         1,
         null,
         1,
@@ -235,7 +226,7 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/test/models/user_test.rb": [
+      "C:/Code/Team 16/project/test/models/company_test.rb": [
         1,
         null,
         1,
@@ -244,7 +235,16 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/test/user/user_creation_test.rb": [
+      "C:/Code/Team 16/project/test/models/user_test.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "C:/Code/Team 16/project/test/user/user_creation_test.rb": [
         1,
         1,
         1,
@@ -289,7 +289,7 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/test/user/user_delete_test.rb": [
+      "C:/Code/Team 16/project/test/user/user_delete_test.rb": [
         1,
         1,
         1,
@@ -332,7 +332,7 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/test/user/user_research_test.rb": [
+      "C:/Code/Team 16/project/test/user/user_research_test.rb": [
         1,
         1,
         1,
@@ -383,7 +383,7 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/app/services/user_service.rb": [
+      "C:/Code/Team 16/project/app/services/user_service.rb": [
         1,
         1,
         24,
@@ -425,11 +425,11 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/app/services/base_service.rb": [
+      "C:/Code/Team 16/project/app/services/base_service.rb": [
         1,
         1,
-        204,
-        59,
+        214,
+        61,
         null,
         null,
         null,
@@ -439,7 +439,7 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/app/services/company_service.rb": [
+      "C:/Code/Team 16/project/app/services/company_service.rb": [
         1,
         1,
         13,
@@ -496,24 +496,24 @@
         null,
         null
       ],
-      "C:/Code/Progetto Ruby/Team 16/project/app/services/activity_service.rb": [
+      "C:/Code/Team 16/project/app/services/activity_service.rb": [
         1,
         1,
-        7,
-        7,
-        7,
-        7,
+        9,
+        9,
+        9,
+        9,
+        9,
+        null,
+        9,
+        9,
+        9,
+        8,
         7,
         null,
         7,
         7,
         7,
-        6,
-        5,
-        null,
-        5,
-        5,
-        5,
         null,
         null,
         1,
@@ -559,6 +559,6 @@
         null
       ]
     },
-    "timestamp": 1513612996
+    "timestamp": 1513613489
   }
 }
