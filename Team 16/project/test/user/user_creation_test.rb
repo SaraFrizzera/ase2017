@@ -10,8 +10,7 @@ class UserCreationTest < ActionDispatch::IntegrationTest
 
     # assert
     assert_not_nil(user)
-    assert_equal(headers['username'], user.username)
-    assert_equal(headers['password'], user.password)
+    assert_equal(headers['username'], user['username'])
   end
 
   test 'Should block user creation when giving wrong params' do
