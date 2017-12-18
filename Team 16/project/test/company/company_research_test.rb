@@ -33,6 +33,22 @@ class CompanyResearchTest < ActionDispatch::IntegrationTest
     assert_equal(creation_headers['companyName'], company.company_name)
   end
 
+  test 'Should find all companies' do
+    reset_db
+
+    # arrange
+    creation_headers = { 'companyName' => 'RageDarioDevelopment', 'vatNumber' => '666' }
+    created_company = CompanyService.new.create_company creation_headers
+
+    # act
+    companies = CompanyService.new.find_companies
+
+    # assert
+    assert_not_nil(companies)
+    assert_equal(1, companies.count)
+    assert_equal(created_company, companies.first)
+  end
+
   def reset_db
     User.delete_all
     Company.delete_all
