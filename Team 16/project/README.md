@@ -51,3 +51,5 @@ Eseguibili tramite il comando
 ```
 
 Sono stati implementate 15 funzioni di test per un totale di quasi una trentina di asserzioni.
+
+Licenza MIT
