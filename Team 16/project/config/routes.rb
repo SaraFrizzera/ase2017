@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post 'company', to: 'company#create' # headers => companyName, vatNumber
   get 'company', to: 'company#find_specific' # headers => companyName, vatNumber
   get 'companies', to: 'company#find_all' # headers =>
-  get 'company/by/id', to: 'company#find_by_id' # headers =>
+  get 'company/by/id', to: 'company#find_by_id' # headers => id
   get 'company/work/amount', to: 'company#company_user_work_amount' # headers =>companyName
   delete 'company', to: 'company#delete' # headers => companyName, vatNumber
 

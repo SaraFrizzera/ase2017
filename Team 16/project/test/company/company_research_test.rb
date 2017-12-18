@@ -21,11 +21,11 @@ class CompanyResearchTest < ActionDispatch::IntegrationTest
 
     # arrange
     creation_headers = { 'companyName' => 'RageDarioDevelopment', 'vatNumber' => '666' }
-    research_headers = { 'id' => '1' }
+    research_headers = { 'id' => '3' }
     created_company = CompanyService.new.create_company creation_headers
 
     # act
-    company = CompanyService.new.find_company research_headers
+    company = CompanyService.new.find_company_by_id research_headers
 
     # assert
     assert_not_nil(company)

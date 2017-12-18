@@ -19,8 +19,6 @@ class CompanyController < BaseController
     service_handler CompanyService.new.method(:company_user_work_amount), request.headers
   end
 
-  
-
   def delete
     service_handler CompanyService.new.method(:delete_company), request.headers
   end
