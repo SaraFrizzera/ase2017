@@ -72,3 +72,5 @@ gem 'axios_rails'
 # gem 'wdm'
 
 gem 'toastr-rails'
+
+gem 'simplecov'
