@@ -10,6 +10,7 @@ class ActivityResearchTest < ActionDispatch::IntegrationTest
       'startTime' => '22 Jan 2013 15:00:00',
       'endTime' => '22 Jan 2013 16:00:00'
     }
+
     ActivityService.new.create_activity search_activity_headers
 
     # act
@@ -61,6 +62,7 @@ class ActivityResearchTest < ActionDispatch::IntegrationTest
     search_activity_headers = {
       'companyName' => 'RageDarioDevelopment'
     }
+
     ActivityService.new.create_activity creation_activity_headers
 
     # act
@@ -95,15 +97,14 @@ class ActivityResearchTest < ActionDispatch::IntegrationTest
       'startTime' => '22 Jan 2013 15:00:00',
       'endTime' => '22 Jan 2013 16:00:00'
     }
-
     search_activity_headers = {
-      'companyName' => 'RageDarioDevelopment'
+      'username' => 'dario'
     }
 
     ActivityService.new.create_activity creation_activity_headers
 
     # act
-    activities = ActivityService.new.find_activity_by_company search_activity_headers
+    activities = ActivityService.new.find_activity_by_user search_activity_headers
 
     # assert
     assert_not_nil(activities)
@@ -116,11 +117,41 @@ class ActivityResearchTest < ActionDispatch::IntegrationTest
     # arrange
     seed_database
     wrong_activity_headers = {
-      'companyName' => 'DarioCo'
+      'username' => 'sara'
     }
 
     # act & assert
-    assert_raises(ArgumentError) { ActivityService.new.find_activity_by_company wrong_activity_headers }
+    assert_raises(ArgumentError) { ActivityService.new.find_activity_by_user wrong_activity_headers }
+  end
+  test 'Should find all activities' do
+    reset_db
+
+    # arrange
+    seed_database
+    user_headers = { 'username' => 'matteo', 'password' => 'pass' }
+    creation_activity_headers1 = {
+      'username' => 'dario',
+      'vatNumber' => '666',
+      'startTime' => '22 Jan 2013 15:00:00',
+      'endTime' => '22 Jan 2013 16:00:00'
+    }
+    creation_activity_headers2 = {
+      'username' => 'matteo',
+      'vatNumber' => '666',
+      'startTime' => '23 Jan 2013 15:00:00',
+      'endTime' => '23 Jan 2013 16:00:00'
+    }
+
+    user = UserService.new.create_user user_headers
+    ActivityService.new.create_activity creation_activity_headers1
+    ActivityService.new.create_activity creation_activity_headers2
+
+    # act
+    activities = ActivityService.new.find_all_activity
+    # assert
+    assert_not_nil(activities)
+    assert_equal('RageDarioDevelopment', activities[0].company.company_name)
+    assert_equal(2, activities.count)
   end
 
   def reset_db
