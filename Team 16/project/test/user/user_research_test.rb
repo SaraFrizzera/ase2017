@@ -3,17 +3,16 @@ class UserResearchTest < ActionDispatch::IntegrationTest
     reset_db
 
     # arrange
-    creation_headers = { 'username' => 'dario', 'password' => 'pw' }
-    search_headers = { 'username' => 'dario' }
-    UserService.new.create_user creation_headers
+    user_headers = { 'username' => 'dario', 'password' => 'pw' }
+    UserService.new.create_user user_headers
 
     # act
-    user = UserService.new.find_user search_headers
+    user = UserService.new.find_user user_headers
 
     # assert
     assert_not_nil(user)
-    assert_equal(creation_headers['username'], user.username)
-    assert_equal(creation_headers['password'], user.password)
+    assert_equal(user_headers['username'], user.username)
+    assert_equal(user_headers['password'], user.password)
   end
 
   test 'Should find all users when giving correct params' do
