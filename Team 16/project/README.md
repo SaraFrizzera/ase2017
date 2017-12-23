@@ -1,6 +1,8 @@
 # Team 16
+
+Il progetto del Team 16 consiste in una piattaforma web per la gestione del lavoro. Il sistema raccoglie i dati di lavoro dei vari utenti che lavorano per l'azienda per poi produrre una fattura in base ai dati precedentemente registrati, mostrando inoltre un grafico con le performance dei singoli utenti. Ogni azienda ha una specifica pagina per visionare le ore a lei fatturate, esiste inoltre la possibilità di inserire nel sistema un amministratore che può variare le ore di un particolare utente, l'introduzione di questo particolare ruolo nel sistema è dettata dalla necessità di mantenere il controllo sull'utenza e garantire trasparenza alle aziende che utilizzano il sistema.
+
 Il progetto per la gestione delle ore lavorative si sviluppa essenzialmente in 4 parti:
- - il login
  - la possibilità per un utente di aggiungere ore laorative per una determinata azienda
  - la possibilità di gestire tutti gli utenti da parte di un admin
  - la possibilità di vedere le ore lavorative svolte per una particolare azienda dall'azienda stessa
